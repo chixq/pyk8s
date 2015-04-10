@@ -10,13 +10,13 @@ from pyk8s.exceptions import PyK8SError
 class InvolvedObject(object):
     def __init__(self,**kwargs):
         params = {
-            'apiVersion':None,
-            'namespace':None,
+            'kind':None,
             'resourceVersion':None,
             'name':None,
-            'uid':None,
             'fieldPath':None,
-            'kind':None,
+            'uid':None,
+            'apiVersion':None,
+            'namespace':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -39,13 +39,13 @@ class InvolvedObject(object):
             raise PyK8SError('Type dict required')
         else:
             return InvolvedObject(
-                apiVersion=data.get('apiVersion', None),
-                namespace=data.get('namespace', None),
+                kind=data.get('kind', None),
                 resourceVersion=data.get('resourceVersion', None),
                 name=data.get('name', None),
-                uid=data.get('uid', None),
                 fieldPath=data.get('fieldPath', None),
-                kind=data.get('kind', None),
+                uid=data.get('uid', None),
+                apiVersion=data.get('apiVersion', None),
+                namespace=data.get('namespace', None),
             )
 
     @staticmethod
@@ -55,39 +55,39 @@ class InvolvedObject(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return InvolvedObject(
-                apiVersion=data.get('apiVersion', None),
-                namespace=data.get('namespace', None),
+                kind=data.get('kind', None),
                 resourceVersion=data.get('resourceVersion', None),
                 name=data.get('name', None),
-                uid=data.get('uid', None),
                 fieldPath=data.get('fieldPath', None),
-                kind=data.get('kind', None),
+                uid=data.get('uid', None),
+                apiVersion=data.get('apiVersion', None),
+                namespace=data.get('namespace', None),
             )
 
 
 class Event(object):
     def __init__(self,**kwargs):
         params = {
-            'kind':None,
-            'creationTimestamp':None,
-            'source':None,
-            'reason':None,
-            'uid':None,
-            'resourceVersion':None,
-            'id':None,
-            'involvedObject':None,
-            'host':None,
-            'message':None,
-            'namespace':None,
-            'apiVersion':None,
-            'lastTimestamp':None,
-            'annotations':None,
-            'firstTimestamp':None,
-            'count':None,
-            'timestamp':None,
-            'generateName':None,
-            'status':None,
             'selfLink':None,
+            'apiVersion':None,
+            'generateName':None,
+            'reason':None,
+            'source':None,
+            'lastTimestamp':None,
+            'creationTimestamp':None,
+            'resourceVersion':None,
+            'annotations':None,
+            'namespace':None,
+            'id':None,
+            'firstTimestamp':None,
+            'involvedObject':None,
+            'status':None,
+            'message':None,
+            'uid':None,
+            'timestamp':None,
+            'count':None,
+            'kind':None,
+            'host':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -111,26 +111,26 @@ class Event(object):
             raise PyK8SError('Type dict required')
         else:
             return Event(
-                kind=data.get('kind', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                source=data.get('source', None),
-                reason=data.get('reason', None),
-                uid=data.get('uid', None),
-                resourceVersion=data.get('resourceVersion', None),
-                id=data.get('id', None),
-                involvedObject=InvolvedObject.newFromDict(data.get('involvedObject', {})),
-                host=data.get('host', None),
-                message=data.get('message', None),
-                namespace=data.get('namespace', None),
-                apiVersion=data.get('apiVersion', None),
-                lastTimestamp=data.get('lastTimestamp', None),
-                annotations=data.get('annotations', None),
-                firstTimestamp=data.get('firstTimestamp', None),
-                count=data.get('count', None),
-                timestamp=data.get('timestamp', None),
-                generateName=data.get('generateName', None),
-                status=data.get('status', None),
                 selfLink=data.get('selfLink', None),
+                apiVersion=data.get('apiVersion', None),
+                generateName=data.get('generateName', None),
+                reason=data.get('reason', None),
+                source=data.get('source', None),
+                lastTimestamp=data.get('lastTimestamp', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                resourceVersion=data.get('resourceVersion', None),
+                annotations=data.get('annotations', None),
+                namespace=data.get('namespace', None),
+                id=data.get('id', None),
+                firstTimestamp=data.get('firstTimestamp', None),
+                involvedObject=InvolvedObject.newFromDict(data.get('involvedObject', {})),
+                status=data.get('status', None),
+                message=data.get('message', None),
+                uid=data.get('uid', None),
+                timestamp=data.get('timestamp', None),
+                count=data.get('count', None),
+                kind=data.get('kind', None),
+                host=data.get('host', None),
             )
 
     @staticmethod
@@ -140,25 +140,25 @@ class Event(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Event(
-                kind=data.get('kind', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                source=data.get('source', None),
-                reason=data.get('reason', None),
-                uid=data.get('uid', None),
-                resourceVersion=data.get('resourceVersion', None),
-                id=data.get('id', None),
-                involvedObject=InvolvedObject.newFromDict(data.get('involvedObject', {})),
-                host=data.get('host', None),
-                message=data.get('message', None),
-                namespace=data.get('namespace', None),
-                apiVersion=data.get('apiVersion', None),
-                lastTimestamp=data.get('lastTimestamp', None),
-                annotations=data.get('annotations', None),
-                firstTimestamp=data.get('firstTimestamp', None),
-                count=data.get('count', None),
-                timestamp=data.get('timestamp', None),
-                generateName=data.get('generateName', None),
-                status=data.get('status', None),
                 selfLink=data.get('selfLink', None),
+                apiVersion=data.get('apiVersion', None),
+                generateName=data.get('generateName', None),
+                reason=data.get('reason', None),
+                source=data.get('source', None),
+                lastTimestamp=data.get('lastTimestamp', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                resourceVersion=data.get('resourceVersion', None),
+                annotations=data.get('annotations', None),
+                namespace=data.get('namespace', None),
+                id=data.get('id', None),
+                firstTimestamp=data.get('firstTimestamp', None),
+                involvedObject=InvolvedObject.newFromDict(data.get('involvedObject', {})),
+                status=data.get('status', None),
+                message=data.get('message', None),
+                uid=data.get('uid', None),
+                timestamp=data.get('timestamp', None),
+                count=data.get('count', None),
+                kind=data.get('kind', None),
+                host=data.get('host', None),
             )
 

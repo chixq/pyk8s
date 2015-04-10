@@ -11,12 +11,12 @@ from pyk8s.service import Service
 class Services(object):
     def __init__(self,**kwargs):
         params = {
-            'creationTimestamp':None,
-            'selfLink':None,
-            'resourceVersion':None,
             'kind':None,
+            'creationTimestamp':None,
             'apiVersion':None,
+            'resourceVersion':None,
             'items':None,
+            'selfLink':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Services(object):
             raise PyK8SError('Type dict required')
         else:
             return Services(
-                creationTimestamp=data.get('creationTimestamp', None),
-                selfLink=data.get('selfLink', None),
-                resourceVersion=data.get('resourceVersion', None),
                 kind=data.get('kind', None),
+                creationTimestamp=data.get('creationTimestamp', None),
                 apiVersion=data.get('apiVersion', None),
+                resourceVersion=data.get('resourceVersion', None),
                 items = [Service.newFromDict(service) for service in data.get('items',{})],
+                selfLink=data.get('selfLink', None),
             )
 
     @staticmethod
@@ -58,11 +58,11 @@ class Services(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Services(
-                creationTimestamp=data.get('creationTimestamp', None),
-                selfLink=data.get('selfLink', None),
-                resourceVersion=data.get('resourceVersion', None),
                 kind=data.get('kind', None),
+                creationTimestamp=data.get('creationTimestamp', None),
                 apiVersion=data.get('apiVersion', None),
+                resourceVersion=data.get('resourceVersion', None),
                 itemss = [Services.newFromDict(services) for services in data.get('items',{})],
+                selfLink=data.get('selfLink', None),
             )
 

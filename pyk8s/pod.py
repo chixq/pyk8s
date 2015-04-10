@@ -7,16 +7,92 @@ except ImportError:
 import copy
 from pyk8s.exceptions import PyK8SError
 
+class Pod(object):
+    def __init__(self,**kwargs):
+        params = {
+            'uid':None,
+            'currentState':None,
+            'generateName':None,
+            'apiVersion':None,
+            'desiredState':None,
+            'id':None,
+            'creationTimestamp':None,
+            'kind':None,
+            'selfLink':None,
+            'labels':None,
+            'namespace':None,
+            'resourceVersion':None,
+         }
+
+        for (attribute, default_value) in params.iteritems():
+            setattr(self, attribute, kwargs.get(attribute, default_value))
+
+    def toDict(self):
+        params =copy.deepcopy(self.__dict__)
+        params['currentState']=self.currentState.toDict();
+        params['desiredState']=self.desiredState.toDict();
+        params['labels']=self.labels.toDict();
+        
+        return params
+
+    def toJson(self):
+        return json.dumps(self.toDict(), sort_keys=True)
+
+    @staticmethod
+    def newFromDict(data):
+        if data is None:
+            data = {}
+
+        if not isinstance(data, dict):
+            raise PyK8SError('Type dict required')
+        else:
+            return Pod(
+                uid=data.get('uid', None),
+                currentState=CurrentState.newFromDict(data.get('currentState', {})),
+                generateName=data.get('generateName', None),
+                apiVersion=data.get('apiVersion', None),
+                desiredState=DesiredState.newFromDict(data.get('desiredState', {})),
+                id=data.get('id', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                kind=data.get('kind', None),
+                selfLink=data.get('selfLink', None),
+                labels=Labels.newFromDict(data.get('labels', {})),
+                namespace=data.get('namespace', None),
+                resourceVersion=data.get('resourceVersion', None),
+            )
+
+    @staticmethod
+    def newFromJson(jsonStr):
+        try:
+            data=json.loads(jsonStr)
+        except ValueError as ex:
+            raise PyK8SError('Input json is not valid, ' + str(ex))
+        return Pod(
+                uid=data.get('uid', None),
+                currentState=CurrentState.newFromDict(data.get('currentState', {})),
+                generateName=data.get('generateName', None),
+                apiVersion=data.get('apiVersion', None),
+                desiredState=DesiredState.newFromDict(data.get('desiredState', {})),
+                id=data.get('id', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                kind=data.get('kind', None),
+                selfLink=data.get('selfLink', None),
+                labels=Labels.newFromDict(data.get('labels', {})),
+                namespace=data.get('namespace', None),
+                resourceVersion=data.get('resourceVersion', None),
+            )
+
+
 class Container(object):
     def __init__(self,**kwargs):
         params = {
-            'capabilities':None,
             'imagePullPolicy':None,
-            'image':None,
-            'ports':None,
-            'resources':None,
+            'capabilities':None,
             'terminationMessagePath':None,
+            'resources':None,
+            'ports':None,
             'name':None,
+            'image':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,13 +119,13 @@ class Container(object):
             raise PyK8SError('Type dict required')
         else:
             return Container(
-#                capabilities=Capabilities.newFromDict(data.get('capabilities', {})),
                 imagePullPolicy=data.get('imagePullPolicy', None),
-                image=data.get('image', None),
-                ports = [Port.newFromDict(port) for port in data.get('ports',{})],
-#                resources=Resources.newFromDict(data.get('resources', {})),
+#                capabilities=Capabilities.newFromDict(data.get('capabilities', {})),
                 terminationMessagePath=data.get('terminationMessagePath', None),
+#                resources=Resources.newFromDict(data.get('resources', {})),
+                ports = [Port.newFromDict(port) for port in data.get('ports',{})],
                 name=data.get('name', None),
+                image=data.get('image', None),
             )
 
     @staticmethod
@@ -59,13 +135,69 @@ class Container(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Container(
-#                capabilities=Capabilities.newFromDict(data.get('capabilities', {})),
                 imagePullPolicy=data.get('imagePullPolicy', None),
-                image=data.get('image', None),
-                portss = [Port.newFromDict(port) for port in data.get('ports',{})],
-#                resources=Resources.newFromDict(data.get('resources', {})),
+#                capabilities=Capabilities.newFromDict(data.get('capabilities', {})),
                 terminationMessagePath=data.get('terminationMessagePath', None),
+#                resources=Resources.newFromDict(data.get('resources', {})),
+                portss = [Port.newFromDict(port) for port in data.get('ports',{})],
                 name=data.get('name', None),
+                image=data.get('image', None),
+            )
+
+
+class Manifest(object):
+    def __init__(self,**kwargs):
+        params = {
+            'dnsPolicy':None,
+            'volumes':None,
+            'containers':None,
+            'id':None,
+            'version':None,
+            'restartPolicy':None,
+         }
+
+        for (attribute, default_value) in params.iteritems():
+            setattr(self, attribute, kwargs.get(attribute, default_value))
+
+    def toDict(self):
+        params =copy.deepcopy(self.__dict__)
+        params['restartPolicy']=self.restartPolicy.toDict();
+        
+        return params
+
+    def toJson(self):
+        return json.dumps(self.toDict(), sort_keys=True)
+
+    @staticmethod
+    def newFromDict(data):
+        if data is None:
+            data = {}
+
+        if not isinstance(data, dict):
+            raise PyK8SError('Type dict required')
+        else:
+            return Manifest(
+                dnsPolicy=data.get('dnsPolicy', None),
+                volumes=data.get('volumes', None),
+                containers=data.get('containers', None),
+                id=data.get('id', None),
+                version=data.get('version', None),
+                restartPolicy=RestartPolicy.newFromDict(data.get('restartPolicy', {})),
+            )
+
+    @staticmethod
+    def newFromJson(jsonStr):
+        try:
+            data=json.loads(jsonStr)
+        except ValueError as ex:
+            raise PyK8SError('Input json is not valid, ' + str(ex))
+        return Manifest(
+                dnsPolicy=data.get('dnsPolicy', None),
+                volumes=data.get('volumes', None),
+                containers=data.get('containers', None),
+                id=data.get('id', None),
+                version=data.get('version', None),
+                restartPolicy=RestartPolicy.newFromDict(data.get('restartPolicy', {})),
             )
 
 
@@ -115,46 +247,6 @@ class Port(object):
             )
 
 
-class RestartPolicy(object):
-    def __init__(self,**kwargs):
-        params = {
-            'always':None,
-         }
-
-        for (attribute, default_value) in params.iteritems():
-            setattr(self, attribute, kwargs.get(attribute, default_value))
-
-    def toDict(self):
-        params =copy.deepcopy(self.__dict__)
-        
-        return params
-
-    def toJson(self):
-        return json.dumps(self.toDict(), sort_keys=True)
-
-    @staticmethod
-    def newFromDict(data):
-        if data is None:
-            data = {}
-
-        if not isinstance(data, dict):
-            raise PyK8SError('Type dict required')
-        else:
-            return RestartPolicy(
-#                always=Always.newFromDict(data.get('always', {})),
-            )
-
-    @staticmethod
-    def newFromJson(jsonStr):
-        try:
-            data=json.loads(jsonStr)
-        except ValueError as ex:
-            raise PyK8SError('Input json is not valid, ' + str(ex))
-        return RestartPolicy(
-#                always=Always.newFromDict(data.get('always', {})),
-            )
-
-
 class CurrentState(object):
     def __init__(self,**kwargs):
         params = {
@@ -199,21 +291,10 @@ class CurrentState(object):
             )
 
 
-class Pod(object):
+class RestartPolicy(object):
     def __init__(self,**kwargs):
         params = {
-            'resourceVersion':None,
-            'id':None,
-            'creationTimestamp':None,
-            'namespace':None,
-            'uid':None,
-            'generateName':None,
-            'apiVersion':None,
-            'labels':None,
-            'currentState':None,
-            'kind':None,
-            'selfLink':None,
-            'desiredState':None,
+            'always':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -221,9 +302,6 @@ class Pod(object):
 
     def toDict(self):
         params =copy.deepcopy(self.__dict__)
-        params['labels']=self.labels.toDict();
-        params['currentState']=self.currentState.toDict();
-        params['desiredState']=self.desiredState.toDict();
         
         return params
 
@@ -238,19 +316,8 @@ class Pod(object):
         if not isinstance(data, dict):
             raise PyK8SError('Type dict required')
         else:
-            return Pod(
-                resourceVersion=data.get('resourceVersion', None),
-                id=data.get('id', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                namespace=data.get('namespace', None),
-                uid=data.get('uid', None),
-                generateName=data.get('generateName', None),
-                apiVersion=data.get('apiVersion', None),
-                labels=Labels.newFromDict(data.get('labels', {})),
-                currentState=CurrentState.newFromDict(data.get('currentState', {})),
-                kind=data.get('kind', None),
-                selfLink=data.get('selfLink', None),
-                desiredState=DesiredState.newFromDict(data.get('desiredState', {})),
+            return RestartPolicy(
+#                always=Always.newFromDict(data.get('always', {})),
             )
 
     @staticmethod
@@ -259,19 +326,8 @@ class Pod(object):
             data=json.loads(jsonStr)
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
-        return Pod(
-                resourceVersion=data.get('resourceVersion', None),
-                id=data.get('id', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                namespace=data.get('namespace', None),
-                uid=data.get('uid', None),
-                generateName=data.get('generateName', None),
-                apiVersion=data.get('apiVersion', None),
-                labels=Labels.newFromDict(data.get('labels', {})),
-                currentState=CurrentState.newFromDict(data.get('currentState', {})),
-                kind=data.get('kind', None),
-                selfLink=data.get('selfLink', None),
-                desiredState=DesiredState.newFromDict(data.get('desiredState', {})),
+        return RestartPolicy(
+#                always=Always.newFromDict(data.get('always', {})),
             )
 
 
@@ -312,62 +368,6 @@ class Labels(object):
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Labels(
                 name=data.get('name', None),
-            )
-
-
-class Manifest(object):
-    def __init__(self,**kwargs):
-        params = {
-            'containers':None,
-            'restartPolicy':None,
-            'version':None,
-            'dnsPolicy':None,
-            'volumes':None,
-            'id':None,
-         }
-
-        for (attribute, default_value) in params.iteritems():
-            setattr(self, attribute, kwargs.get(attribute, default_value))
-
-    def toDict(self):
-        params =copy.deepcopy(self.__dict__)
-        params['restartPolicy']=self.restartPolicy.toDict();
-        
-        return params
-
-    def toJson(self):
-        return json.dumps(self.toDict(), sort_keys=True)
-
-    @staticmethod
-    def newFromDict(data):
-        if data is None:
-            data = {}
-
-        if not isinstance(data, dict):
-            raise PyK8SError('Type dict required')
-        else:
-            return Manifest(
-                containers=data.get('containers', None),
-                restartPolicy=RestartPolicy.newFromDict(data.get('restartPolicy', {})),
-                version=data.get('version', None),
-                dnsPolicy=data.get('dnsPolicy', None),
-                volumes=data.get('volumes', None),
-                id=data.get('id', None),
-            )
-
-    @staticmethod
-    def newFromJson(jsonStr):
-        try:
-            data=json.loads(jsonStr)
-        except ValueError as ex:
-            raise PyK8SError('Input json is not valid, ' + str(ex))
-        return Manifest(
-                containers=data.get('containers', None),
-                restartPolicy=RestartPolicy.newFromDict(data.get('restartPolicy', {})),
-                version=data.get('version', None),
-                dnsPolicy=data.get('dnsPolicy', None),
-                volumes=data.get('volumes', None),
-                id=data.get('id', None),
             )
 
 

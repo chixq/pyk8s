@@ -11,11 +11,11 @@ from pyk8s.event import Event
 class Events(object):
     def __init__(self,**kwargs):
         params = {
-            'creationTimestamp':None,
-            'kind':None,
-            'apiVersion':None,
             'items':None,
+            'creationTimestamp':None,
+            'apiVersion':None,
             'resourceVersion':None,
+            'kind':None,
             'selfLink':None,
          }
 
@@ -43,11 +43,11 @@ class Events(object):
             raise PyK8SError('Type dict required')
         else:
             return Events(
-                creationTimestamp=data.get('creationTimestamp', None),
-                kind=data.get('kind', None),
-                apiVersion=data.get('apiVersion', None),
                 items = [Event.newFromDict(event) for event in data.get('items',{})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                apiVersion=data.get('apiVersion', None),
                 resourceVersion=data.get('resourceVersion', None),
+                kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
             )
 
@@ -58,11 +58,11 @@ class Events(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Events(
-                creationTimestamp=data.get('creationTimestamp', None),
-                kind=data.get('kind', None),
-                apiVersion=data.get('apiVersion', None),
                 itemss = [Events.newFromDict(events) for events in data.get('items',{})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                apiVersion=data.get('apiVersion', None),
                 resourceVersion=data.get('resourceVersion', None),
+                kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
             )
 

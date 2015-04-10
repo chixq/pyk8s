@@ -12,11 +12,11 @@ class Limitranges(object):
     def __init__(self,**kwargs):
         params = {
             'items':None,
-            'selfLink':None,
-            'creationTimestamp':None,
-            'apiVersion':None,
             'resourceVersion':None,
             'kind':None,
+            'creationTimestamp':None,
+            'selfLink':None,
+            'apiVersion':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -44,11 +44,11 @@ class Limitranges(object):
         else:
             return Limitranges(
                 items = [Limitrange.newFromDict(limitrange) for limitrange in data.get('items',{})],
-                selfLink=data.get('selfLink', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                apiVersion=data.get('apiVersion', None),
                 resourceVersion=data.get('resourceVersion', None),
                 kind=data.get('kind', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                selfLink=data.get('selfLink', None),
+                apiVersion=data.get('apiVersion', None),
             )
 
     @staticmethod
@@ -59,10 +59,10 @@ class Limitranges(object):
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Limitranges(
                 itemss = [Limitranges.newFromDict(limitranges) for limitranges in data.get('items',{})],
-                selfLink=data.get('selfLink', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                apiVersion=data.get('apiVersion', None),
                 resourceVersion=data.get('resourceVersion', None),
                 kind=data.get('kind', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                selfLink=data.get('selfLink', None),
+                apiVersion=data.get('apiVersion', None),
             )
 

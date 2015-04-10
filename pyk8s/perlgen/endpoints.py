@@ -15,23 +15,22 @@ from pyk8s.event import Event
 from pyk8s.limitrange import Limitrange
 from pyk8s.replicationcontroller import Replicationcontroller
 from pyk8s.resourcequota import Resourcequota
-from pyk8s.bindings import Bindings
 
 class EndpointMixin(object):
     #-------bindings-----
-#     def getBindings(self):
-#         response = self.get('bindings')
-#         return Bindings.newFromDict(response)
+    def getBindings(self):
+        response = self.get('bindings')
+        return Bindings.newFromDict(response)
 
     def postBindings(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
         return self.post('bindings',params)
 
-#     def addBindings(self,ob):
-#         if not isinstance(ob,Bindings):
-#             raise PyK8SError('Type Bindings required')
-#         return self.postBindings(ob.toDict())
+    def addBindings(self,ob):
+        if not isinstance(ob,Bindings):
+            raise PyK8SError('Type Bindings required')
+        return self.postBindings(ob.toDict())
 
     #-------event-----
     def getEvent(self,name):

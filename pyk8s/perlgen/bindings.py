@@ -11,18 +11,18 @@ from pyk8s.binding import Binding
 class Bindings(object):
     def __init__(self,**kwargs):
         params = {
-            'podID':None,
-            'resourceVersion':None,
-            'selfLink':None,
             'host':None,
-            'generateName':None,
+            'selfLink':None,
+            'uid':None,
             'namespace':None,
             'creationTimestamp':None,
-            'uid':None,
-            'annotations':None,
             'kind':None,
-            'id':None,
             'apiVersion':None,
+            'annotations':None,
+            'generateName':None,
+            'podID':None,
+            'id':None,
+            'resourceVersion':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -45,18 +45,18 @@ class Bindings(object):
             raise PyK8SError('Type dict required')
         else:
             return Bindings(
-                podID=data.get('podID', None),
-                resourceVersion=data.get('resourceVersion', None),
-                selfLink=data.get('selfLink', None),
                 host=data.get('host', None),
-                generateName=data.get('generateName', None),
+                selfLink=data.get('selfLink', None),
+                uid=data.get('uid', None),
                 namespace=data.get('namespace', None),
                 creationTimestamp=data.get('creationTimestamp', None),
-                uid=data.get('uid', None),
-                annotations=data.get('annotations', None),
                 kind=data.get('kind', None),
-                id=data.get('id', None),
                 apiVersion=data.get('apiVersion', None),
+                annotations=data.get('annotations', None),
+                generateName=data.get('generateName', None),
+                podID=data.get('podID', None),
+                id=data.get('id', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 
     @staticmethod
@@ -66,17 +66,17 @@ class Bindings(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Bindings(
-                podID=data.get('podID', None),
-                resourceVersion=data.get('resourceVersion', None),
-                selfLink=data.get('selfLink', None),
                 host=data.get('host', None),
-                generateName=data.get('generateName', None),
+                selfLink=data.get('selfLink', None),
+                uid=data.get('uid', None),
                 namespace=data.get('namespace', None),
                 creationTimestamp=data.get('creationTimestamp', None),
-                uid=data.get('uid', None),
-                annotations=data.get('annotations', None),
                 kind=data.get('kind', None),
-                id=data.get('id', None),
                 apiVersion=data.get('apiVersion', None),
+                annotations=data.get('annotations', None),
+                generateName=data.get('generateName', None),
+                podID=data.get('podID', None),
+                id=data.get('id', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 

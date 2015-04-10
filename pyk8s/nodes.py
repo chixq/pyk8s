@@ -11,12 +11,12 @@ from pyk8s.node import Node
 class Nodes(object):
     def __init__(self,**kwargs):
         params = {
-            'apiVersion':None,
             'creationTimestamp':None,
+            'apiVersion':None,
             'items':None,
-            'resourceVersion':None,
-            'kind':None,
             'selfLink':None,
+            'kind':None,
+            'resourceVersion':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Nodes(object):
             raise PyK8SError('Type dict required')
         else:
             return Nodes(
-                apiVersion=data.get('apiVersion', None),
                 creationTimestamp=data.get('creationTimestamp', None),
+                apiVersion=data.get('apiVersion', None),
                 items = [Node.newFromDict(node) for node in data.get('items',{})],
-                resourceVersion=data.get('resourceVersion', None),
-                kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
+                kind=data.get('kind', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 
     @staticmethod
@@ -58,11 +58,11 @@ class Nodes(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Nodes(
-                apiVersion=data.get('apiVersion', None),
                 creationTimestamp=data.get('creationTimestamp', None),
+                apiVersion=data.get('apiVersion', None),
                 itemss = [Nodes.newFromDict(nodes) for nodes in data.get('items',{})],
-                resourceVersion=data.get('resourceVersion', None),
-                kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
+                kind=data.get('kind', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 

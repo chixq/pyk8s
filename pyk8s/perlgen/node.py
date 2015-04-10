@@ -7,6 +7,74 @@ except ImportError:
 import copy
 from pyk8s.exceptions import PyK8SError
 
+class Node(object):
+    def __init__(self,**kwargs):
+        params = {
+            'id':None,
+            'creationTimestamp':None,
+            'uid':None,
+            'hostIP':None,
+            'kind':None,
+            'selfLink':None,
+            'resources':None,
+            'apiVersion':None,
+            'status':None,
+            'resourceVersion':None,
+         }
+
+        for (attribute, default_value) in params.iteritems():
+            setattr(self, attribute, kwargs.get(attribute, default_value))
+
+    def toDict(self):
+        params =copy.deepcopy(self.__dict__)
+        params['status']=self.status.toDict();
+        
+        return params
+
+    def toJson(self):
+        return json.dumps(self.toDict(), sort_keys=True)
+
+    @staticmethod
+    def newFromDict(data):
+        if data is None:
+            data = {}
+
+        if not isinstance(data, dict):
+            raise PyK8SError('Type dict required')
+        else:
+            return Node(
+                id=data.get('id', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                uid=data.get('uid', None),
+                hostIP=data.get('hostIP', None),
+                kind=data.get('kind', None),
+                selfLink=data.get('selfLink', None),
+#                resources=Resources.newFromDict(data.get('resources', {})),
+                apiVersion=data.get('apiVersion', None),
+                status=Status.newFromDict(data.get('status', {})),
+                resourceVersion=data.get('resourceVersion', None),
+            )
+
+    @staticmethod
+    def newFromJson(jsonStr):
+        try:
+            data=json.loads(jsonStr)
+        except ValueError as ex:
+            raise PyK8SError('Input json is not valid, ' + str(ex))
+        return Node(
+                id=data.get('id', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                uid=data.get('uid', None),
+                hostIP=data.get('hostIP', None),
+                kind=data.get('kind', None),
+                selfLink=data.get('selfLink', None),
+#                resources=Resources.newFromDict(data.get('resources', {})),
+                apiVersion=data.get('apiVersion', None),
+                status=Status.newFromDict(data.get('status', {})),
+                resourceVersion=data.get('resourceVersion', None),
+            )
+
+
 class Status(object):
     def __init__(self,**kwargs):
         params = {
@@ -54,11 +122,11 @@ class Status(object):
 class Condition(object):
     def __init__(self,**kwargs):
         params = {
-            'lastTransitionTime':None,
-            'kind':None,
             'status':None,
-            'reason':None,
             'lastProbeTime':None,
+            'kind':None,
+            'reason':None,
+            'lastTransitionTime':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -81,11 +149,11 @@ class Condition(object):
             raise PyK8SError('Type dict required')
         else:
             return Condition(
-                lastTransitionTime=data.get('lastTransitionTime', None),
-                kind=data.get('kind', None),
                 status=data.get('status', None),
-                reason=data.get('reason', None),
                 lastProbeTime=data.get('lastProbeTime', None),
+                kind=data.get('kind', None),
+                reason=data.get('reason', None),
+                lastTransitionTime=data.get('lastTransitionTime', None),
             )
 
     @staticmethod
@@ -95,78 +163,10 @@ class Condition(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Condition(
-                lastTransitionTime=data.get('lastTransitionTime', None),
-                kind=data.get('kind', None),
                 status=data.get('status', None),
-                reason=data.get('reason', None),
                 lastProbeTime=data.get('lastProbeTime', None),
-            )
-
-
-class Node(object):
-    def __init__(self,**kwargs):
-        params = {
-            'apiVersion':None,
-            'selfLink':None,
-            'uid':None,
-            'status':None,
-            'creationTimestamp':None,
-            'kind':None,
-            'resourceVersion':None,
-            'resources':None,
-            'id':None,
-            'hostIP':None,
-         }
-
-        for (attribute, default_value) in params.iteritems():
-            setattr(self, attribute, kwargs.get(attribute, default_value))
-
-    def toDict(self):
-        params =copy.deepcopy(self.__dict__)
-        params['status']=self.status.toDict();
-        
-        return params
-
-    def toJson(self):
-        return json.dumps(self.toDict(), sort_keys=True)
-
-    @staticmethod
-    def newFromDict(data):
-        if data is None:
-            data = {}
-
-        if not isinstance(data, dict):
-            raise PyK8SError('Type dict required')
-        else:
-            return Node(
-                apiVersion=data.get('apiVersion', None),
-                selfLink=data.get('selfLink', None),
-                uid=data.get('uid', None),
-                status=Status.newFromDict(data.get('status', {})),
-                creationTimestamp=data.get('creationTimestamp', None),
                 kind=data.get('kind', None),
-                resourceVersion=data.get('resourceVersion', None),
-#                resources=Resources.newFromDict(data.get('resources', {})),
-                id=data.get('id', None),
-                hostIP=data.get('hostIP', None),
-            )
-
-    @staticmethod
-    def newFromJson(jsonStr):
-        try:
-            data=json.loads(jsonStr)
-        except ValueError as ex:
-            raise PyK8SError('Input json is not valid, ' + str(ex))
-        return Node(
-                apiVersion=data.get('apiVersion', None),
-                selfLink=data.get('selfLink', None),
-                uid=data.get('uid', None),
-                status=Status.newFromDict(data.get('status', {})),
-                creationTimestamp=data.get('creationTimestamp', None),
-                kind=data.get('kind', None),
-                resourceVersion=data.get('resourceVersion', None),
-#                resources=Resources.newFromDict(data.get('resources', {})),
-                id=data.get('id', None),
-                hostIP=data.get('hostIP', None),
+                reason=data.get('reason', None),
+                lastTransitionTime=data.get('lastTransitionTime', None),
             )
 

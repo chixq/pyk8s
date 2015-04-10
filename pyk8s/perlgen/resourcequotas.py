@@ -11,12 +11,12 @@ from pyk8s.resourcequota import Resourcequota
 class Resourcequotas(object):
     def __init__(self,**kwargs):
         params = {
-            'resourceVersion':None,
             'items':None,
+            'creationTimestamp':None,
+            'resourceVersion':None,
+            'apiVersion':None,
             'kind':None,
             'selfLink':None,
-            'apiVersion':None,
-            'creationTimestamp':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Resourcequotas(object):
             raise PyK8SError('Type dict required')
         else:
             return Resourcequotas(
-                resourceVersion=data.get('resourceVersion', None),
                 items = [Resourcequota.newFromDict(resourcequota) for resourcequota in data.get('items',{})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                resourceVersion=data.get('resourceVersion', None),
+                apiVersion=data.get('apiVersion', None),
                 kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
-                apiVersion=data.get('apiVersion', None),
-                creationTimestamp=data.get('creationTimestamp', None),
             )
 
     @staticmethod
@@ -58,11 +58,11 @@ class Resourcequotas(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Resourcequotas(
-                resourceVersion=data.get('resourceVersion', None),
                 itemss = [Resourcequotas.newFromDict(resourcequotas) for resourcequotas in data.get('items',{})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                resourceVersion=data.get('resourceVersion', None),
+                apiVersion=data.get('apiVersion', None),
                 kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
-                apiVersion=data.get('apiVersion', None),
-                creationTimestamp=data.get('creationTimestamp', None),
             )
 

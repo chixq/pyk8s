@@ -11,12 +11,12 @@ from pyk8s.replicationcontroller import Replicationcontroller
 class Replicationcontrollers(object):
     def __init__(self,**kwargs):
         params = {
-            'selfLink':None,
             'apiVersion':None,
             'items':None,
-            'creationTimestamp':None,
-            'resourceVersion':None,
             'kind':None,
+            'creationTimestamp':None,
+            'selfLink':None,
+            'resourceVersion':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Replicationcontrollers(object):
             raise PyK8SError('Type dict required')
         else:
             return Replicationcontrollers(
-                selfLink=data.get('selfLink', None),
                 apiVersion=data.get('apiVersion', None),
                 items = [Replicationcontroller.newFromDict(replicationcontroller) for replicationcontroller in data.get('items',{})],
-                creationTimestamp=data.get('creationTimestamp', None),
-                resourceVersion=data.get('resourceVersion', None),
                 kind=data.get('kind', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                selfLink=data.get('selfLink', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 
     @staticmethod
@@ -58,11 +58,11 @@ class Replicationcontrollers(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Replicationcontrollers(
-                selfLink=data.get('selfLink', None),
                 apiVersion=data.get('apiVersion', None),
                 itemss = [Replicationcontrollers.newFromDict(replicationcontrollers) for replicationcontrollers in data.get('items',{})],
-                creationTimestamp=data.get('creationTimestamp', None),
-                resourceVersion=data.get('resourceVersion', None),
                 kind=data.get('kind', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                selfLink=data.get('selfLink', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 
