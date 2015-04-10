@@ -1,0 +1,25 @@
+{
+  "kind": "Service",
+  "id": "webfrontend",
+  "uid": "3f8ea9c0-d820-11e4-a8fc-22000aa79d73",
+  "creationTimestamp": "2015-04-01T03:36:14Z",
+  "selfLink": "/api/v1beta2/services/webfrontend",
+  "resourceVersion": 365,
+  "apiVersion": "v1beta2",
+  "namespace": "default",
+  "port": 9090,
+  "protocol": "TCP",
+  "labels": {
+    "name": "webservice"
+  },
+  "selector": {
+    "name": "web"
+  },
+  "publicIPs": [
+    "10.184.0.246",
+    "10.189.132.94",
+    "10.185.134.19"
+  ],
+  "containerPort": 80,
+  "portalIP": "10.0.170.25"
+}

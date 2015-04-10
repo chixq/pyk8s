@@ -1,0 +1,14 @@
+{
+  "annotations": "v1beta2.TypeMeta.annotations",
+  "apiVersion": "",
+  "creationTimestamp": "",
+  "generateName": "",
+  "host": "",
+  "id": "",
+  "kind": "",
+  "namespace": "",
+  "podID": "",
+  "resourceVersion": "uint64",
+  "selfLink": "",
+  "uid": "types.UID"
+}

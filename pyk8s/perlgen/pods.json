@@ -1,0 +1,109 @@
+{
+  "kind": "PodList",
+  "creationTimestamp": null,
+  "selfLink": "/api/v1beta2/pods?namespace=",
+  "resourceVersion": 399165,
+  "apiVersion": "v1beta2",
+  "items": [
+    {
+      "id": "nginxcontroller-ijs4t",
+      "uid": "0986b07d-dd9f-11e4-b7bf-22000aa6197c",
+      "creationTimestamp": "2015-04-08T03:26:25Z",
+      "selfLink": "/api/v1beta2/pods/nginxcontroller-ijs4t?namespace=default",
+      "resourceVersion": 335333,
+      "namespace": "default",
+      "generateName": "nginxcontroller-",
+      "labels": {
+        "name": "nginx"
+      },
+      "desiredState": {
+        "manifest": {
+          "version": "v1beta2",
+          "id": "",
+          "volumes": null,
+          "containers": [
+            {
+              "name": "nginx",
+              "image": "dockerfile/nginx",
+              "ports": [
+                {
+                  "hostPort": 31001,
+                  "containerPort": 80,
+                  "protocol": "TCP"
+                }
+              ],
+              "resources": {},
+              "terminationMessagePath": "/dev/termination-log",
+              "imagePullPolicy": "PullIfNotPresent",
+              "capabilities": {}
+            }
+          ],
+          "restartPolicy": {
+            "always": {}
+          },
+          "dnsPolicy": "ClusterFirst"
+        }
+      },
+      "currentState": {
+        "manifest": {
+          "version": "",
+          "id": "",
+          "volumes": null,
+          "containers": null,
+          "restartPolicy": {}
+        },
+        "status": "Waiting"
+      }
+    },
+    {
+      "id": "nginxcontroller-pszx5",
+      "uid": "0f7ddca5-dd9f-11e4-b7bf-22000aa6197c",
+      "creationTimestamp": "2015-04-08T03:26:35Z",
+      "selfLink": "/api/v1beta2/pods/nginxcontroller-pszx5?namespace=default",
+      "resourceVersion": 335347,
+      "namespace": "default",
+      "generateName": "nginxcontroller-",
+      "labels": {
+        "name": "nginx"
+      },
+      "desiredState": {
+        "manifest": {
+          "version": "v1beta2",
+          "id": "",
+          "volumes": null,
+          "containers": [
+            {
+              "name": "nginx",
+              "image": "dockerfile/nginx",
+              "ports": [
+                {
+                  "hostPort": 31001,
+                  "containerPort": 80,
+                  "protocol": "TCP"
+                }
+              ],
+              "resources": {},
+              "terminationMessagePath": "/dev/termination-log",
+              "imagePullPolicy": "PullIfNotPresent",
+              "capabilities": {}
+            }
+          ],
+          "restartPolicy": {
+            "always": {}
+          },
+          "dnsPolicy": "ClusterFirst"
+        }
+      },
+      "currentState": {
+        "manifest": {
+          "version": "",
+          "id": "",
+          "volumes": null,
+          "containers": null,
+          "restartPolicy": {}
+        },
+        "status": "Waiting"
+      }
+    }
+  ]
+}

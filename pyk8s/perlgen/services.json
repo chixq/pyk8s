@@ -1,0 +1,64 @@
+{
+  "kind": "ServiceList",
+  "creationTimestamp": null,
+  "selfLink": "/api/v1beta2/services",
+  "resourceVersion": 502,
+  "apiVersion": "v1beta2",
+  "items": [
+    {
+      "id": "webfrontend",
+      "uid": "3f8ea9c0-d820-11e4-a8fc-22000aa79d73",
+      "creationTimestamp": "2015-04-01T03:36:14Z",
+      "selfLink": "/api/v1beta2/services/webfrontend",
+      "resourceVersion": 365,
+      "namespace": "default",
+      "port": 9090,
+      "protocol": "TCP",
+      "labels": {
+        "name": "webservice"
+      },
+      "selector": {
+        "name": "web"
+      },
+      "publicIPs": [
+        "10.184.0.246",
+        "10.189.132.94",
+        "10.185.134.19"
+      ],
+      "containerPort": 80,
+      "portalIP": "10.0.170.25"
+    },
+    {
+      "id": "kubernetes",
+      "uid": "a3fb11f6-d446-11e4-80bd-22000aa79d73",
+      "creationTimestamp": "2015-03-27T06:00:59Z",
+      "selfLink": "/api/v1beta2/services/kubernetes",
+      "resourceVersion": 5,
+      "namespace": "default",
+      "port": 443,
+      "protocol": "TCP",
+      "selector": {
+        "component": "apiserver",
+        "provider": "kubernetes"
+      },
+      "containerPort": 0,
+      "portalIP": "10.0.53.117"
+    },
+    {
+      "id": "kubernetes-ro",
+      "uid": "a3fb32aa-d446-11e4-80bd-22000aa79d73",
+      "creationTimestamp": "2015-03-27T06:00:59Z",
+      "selfLink": "/api/v1beta2/services/kubernetes-ro",
+      "resourceVersion": 6,
+      "namespace": "default",
+      "port": 80,
+      "protocol": "TCP",
+      "selector": {
+        "component": "apiserver",
+        "provider": "kubernetes"
+      },
+      "containerPort": 0,
+      "portalIP": "10.0.165.143"
+    }
+  ]
+}

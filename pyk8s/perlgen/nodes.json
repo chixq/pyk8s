@@ -1,0 +1,129 @@
+{
+  "kind": "MinionList",
+  "creationTimestamp": null,
+  "selfLink": "/api/v1beta2/nodes",
+  "resourceVersion": 394084,
+  "apiVersion": "v1beta2",
+  "items": [
+    {
+      "id": "ip-10-126-24-39.ap-northeast-1.compute.internal",
+      "uid": "50cf603d-dd9f-11e4-b7bf-22000aa6197c",
+      "creationTimestamp": "2015-04-08T03:28:25Z",
+      "selfLink": "/api/v1beta2/nodes/ip-10-126-24-39.ap-northeast-1.compute.internal",
+      "resourceVersion": 394079,
+      "hostIP": "10.126.24.39",
+      "resources": {},
+      "status": {
+        "conditions": [
+          {
+            "kind": "Ready",
+            "status": "None",
+            "lastProbeTime": "2015-04-09T05:46:59Z",
+            "lastTransitionTime": "2015-04-08T03:28:30Z",
+            "reason": "Node health check failed: kubelet /healthz endpoint returns not ok"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ip-10-126-31-240.ap-northeast-1.compute.internal",
+      "uid": "56c82710-dd9f-11e4-b7bf-22000aa6197c",
+      "creationTimestamp": "2015-04-08T03:28:35Z",
+      "selfLink": "/api/v1beta2/nodes/ip-10-126-31-240.ap-northeast-1.compute.internal",
+      "resourceVersion": 394080,
+      "hostIP": "10.126.31.240",
+      "resources": {},
+      "status": {
+        "conditions": [
+          {
+            "kind": "Ready",
+            "status": "None",
+            "lastProbeTime": "2015-04-09T05:46:59Z",
+            "lastTransitionTime": "2015-04-08T03:28:40Z",
+            "reason": "Node health check failed: kubelet /healthz endpoint returns not ok"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ip-10-167-138-227.ap-northeast-1.compute.internal",
+      "uid": "50cb7e6c-dd9f-11e4-b7bf-22000aa6197c",
+      "creationTimestamp": "2015-04-08T03:28:25Z",
+      "selfLink": "/api/v1beta2/nodes/ip-10-167-138-227.ap-northeast-1.compute.internal",
+      "resourceVersion": 394081,
+      "hostIP": "10.167.138.227",
+      "resources": {},
+      "status": {
+        "conditions": [
+          {
+            "kind": "Ready",
+            "status": "Full",
+            "lastProbeTime": "2015-04-09T05:46:59Z",
+            "lastTransitionTime": "2015-04-08T03:28:30Z",
+            "reason": "Node health check succeeded: kubelet /healthz endpoint returns ok"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ip-10-167-149-152.ap-northeast-1.compute.internal",
+      "uid": "50cec8c4-dd9f-11e4-b7bf-22000aa6197c",
+      "creationTimestamp": "2015-04-08T03:28:25Z",
+      "selfLink": "/api/v1beta2/nodes/ip-10-167-149-152.ap-northeast-1.compute.internal",
+      "resourceVersion": 394082,
+      "hostIP": "10.167.149.152",
+      "resources": {},
+      "status": {
+        "conditions": [
+          {
+            "kind": "Ready",
+            "status": "Full",
+            "lastProbeTime": "2015-04-09T05:46:59Z",
+            "lastTransitionTime": "2015-04-08T03:28:30Z",
+            "reason": "Node health check succeeded: kubelet /healthz endpoint returns ok"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ip-10-173-3-84.ap-northeast-1.compute.internal",
+      "uid": "5cc47f95-dd9f-11e4-b7bf-22000aa6197c",
+      "creationTimestamp": "2015-04-08T03:28:45Z",
+      "selfLink": "/api/v1beta2/nodes/ip-10-173-3-84.ap-northeast-1.compute.internal",
+      "resourceVersion": 394083,
+      "hostIP": "10.173.3.84",
+      "resources": {},
+      "status": {
+        "conditions": [
+          {
+            "kind": "Ready",
+            "status": "Full",
+            "lastProbeTime": "2015-04-09T05:46:59Z",
+            "lastTransitionTime": "2015-04-08T03:28:50Z",
+            "reason": "Node health check succeeded: kubelet /healthz endpoint returns ok"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ip-10-175-10-106.ap-northeast-1.compute.internal",
+      "uid": "50cc854a-dd9f-11e4-b7bf-22000aa6197c",
+      "creationTimestamp": "2015-04-08T03:28:25Z",
+      "selfLink": "/api/v1beta2/nodes/ip-10-175-10-106.ap-northeast-1.compute.internal",
+      "resourceVersion": 394084,
+      "hostIP": "10.175.10.106",
+      "resources": {},
+      "status": {
+        "conditions": [
+          {
+            "kind": "Ready",
+            "status": "Full",
+            "lastProbeTime": "2015-04-09T05:46:59Z",
+            "lastTransitionTime": "2015-04-08T03:28:30Z",
+            "reason": "Node health check succeeded: kubelet /healthz endpoint returns ok"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "kind": "Minion",
+  "id": "ip-10-126-24-39.ap-northeast-1.compute.internal",
+  "uid": "50cf603d-dd9f-11e4-b7bf-22000aa6197c",
+  "creationTimestamp": "2015-04-08T03:28:25Z",
+  "selfLink": "/api/v1beta2/nodes/ip-10-126-24-39.ap-northeast-1.compute.internal",
+  "resourceVersion": 394115,
+  "apiVersion": "v1beta2",
+  "hostIP": "10.126.24.39",
+  "resources": {},
+  "status": {
+    "conditions": [
+      {
+        "kind": "Ready",
+        "status": "None",
+        "lastProbeTime": "2015-04-09T05:48:00Z",
+        "lastTransitionTime": "2015-04-08T03:28:30Z",
+        "reason": "Node health check failed: kubelet /healthz endpoint returns not ok"
+      }
+    ]
+  }
+}

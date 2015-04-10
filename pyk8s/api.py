@@ -7,6 +7,11 @@ from pyk8s.endpoints import EndpointMixin
 from pyk8s.exceptions import PyK8SAuthError, PyK8SError
 from pyk8s.helper import Helper
 
+try:
+    import simplejson as json
+except ImportError:
+    import json
+
 
 class PyK8S(EndpointMixin, object):
     def __init__(self, user_id=None, user_password=None, headers=None, client_args=None, base_url=None):
@@ -82,9 +87,10 @@ class PyK8S(EndpointMixin, object):
             else:
                 ExceptionType = PyK8SError
             raise ExceptionType(response.json(), error_code=response.status_code)
-
+        
+        print type(response)
         try:
-            content = response.json()
+            content = response.json
         except ValueError:
             raise PyK8SError('Response was not valid JSON. \
                                Unable to decode.')

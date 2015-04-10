@@ -1,0 +1,30 @@
+{
+  "annotations": "v1beta2.TypeMeta.annotations",
+  "apiVersion": "",
+  "count": 0,
+  "creationTimestamp": "",
+  "firstTimestamp": "",
+  "generateName": "",
+  "host": "",
+  "id": "",
+  "involvedObject": {
+    "apiVersion": "",
+    "fieldPath": "",
+    "kind": "",
+    "name": "",
+    "namespace": "",
+    "resourceVersion": "",
+    "uid": "types.UID"
+  },
+  "kind": "",
+  "lastTimestamp": "",
+  "message": "",
+  "namespace": "",
+  "reason": "",
+  "resourceVersion": "uint64",
+  "selfLink": "",
+  "source": "",
+  "status": "",
+  "timestamp": "",
+  "uid": "types.UID"
+}
