@@ -11,11 +11,11 @@ from pyk8s.limitrange import Limitrange
 class Limitranges(object):
     def __init__(self,**kwargs):
         params = {
-            'items':None,
-            'resourceVersion':None,
-            'kind':None,
-            'creationTimestamp':None,
             'selfLink':None,
+            'items':None,
+            'creationTimestamp':None,
+            'kind':None,
+            'resourceVersion':None,
             'apiVersion':None,
          }
 
@@ -43,11 +43,11 @@ class Limitranges(object):
             raise PyK8SError('Type dict required')
         else:
             return Limitranges(
-                items = [Limitrange.newFromDict(limitrange) for limitrange in data.get('items',{})],
-                resourceVersion=data.get('resourceVersion', None),
-                kind=data.get('kind', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 selfLink=data.get('selfLink', None),
+                items = [Limitrange.newFromDict(limitrange) for limitrange in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                kind=data.get('kind', None),
+                resourceVersion=data.get('resourceVersion', None),
                 apiVersion=data.get('apiVersion', None),
             )
 
@@ -58,11 +58,16 @@ class Limitranges(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Limitranges(
-                itemss = [Limitranges.newFromDict(limitranges) for limitranges in data.get('items',{})],
-                resourceVersion=data.get('resourceVersion', None),
-                kind=data.get('kind', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 selfLink=data.get('selfLink', None),
+                items = [Limitranges.newFromDict(limitranges) for limitranges in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                kind=data.get('kind', None),
+                resourceVersion=data.get('resourceVersion', None),
                 apiVersion=data.get('apiVersion', None),
             )
 
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Limitranges.newFromDict(json_data)

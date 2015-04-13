@@ -7,19 +7,14 @@ except ImportError:
 import copy
 from pyk8s.exceptions import PyK8SError
 
-class Node(object):
+class Condition(object):
     def __init__(self,**kwargs):
         params = {
-            'id':None,
-            'creationTimestamp':None,
-            'uid':None,
-            'hostIP':None,
             'kind':None,
-            'selfLink':None,
-            'resources':None,
-            'apiVersion':None,
+            'lastProbeTime':None,
             'status':None,
-            'resourceVersion':None,
+            'reason':None,
+            'lastTransitionTime':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -27,7 +22,6 @@ class Node(object):
 
     def toDict(self):
         params =copy.deepcopy(self.__dict__)
-        params['status']=self.status.toDict();
         
         return params
 
@@ -42,17 +36,12 @@ class Node(object):
         if not isinstance(data, dict):
             raise PyK8SError('Type dict required')
         else:
-            return Node(
-                id=data.get('id', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                uid=data.get('uid', None),
-                hostIP=data.get('hostIP', None),
+            return Condition(
                 kind=data.get('kind', None),
-                selfLink=data.get('selfLink', None),
-#                resources=Resources.newFromDict(data.get('resources', {})),
-                apiVersion=data.get('apiVersion', None),
-                status=Status.newFromDict(data.get('status', {})),
-                resourceVersion=data.get('resourceVersion', None),
+                lastProbeTime=data.get('lastProbeTime', None),
+                status=data.get('status', None),
+                reason=data.get('reason', None),
+                lastTransitionTime=data.get('lastTransitionTime', None),
             )
 
     @staticmethod
@@ -61,20 +50,19 @@ class Node(object):
             data=json.loads(jsonStr)
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
-        return Node(
-                id=data.get('id', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                uid=data.get('uid', None),
-                hostIP=data.get('hostIP', None),
+        return Condition(
                 kind=data.get('kind', None),
-                selfLink=data.get('selfLink', None),
-#                resources=Resources.newFromDict(data.get('resources', {})),
-                apiVersion=data.get('apiVersion', None),
-                status=Status.newFromDict(data.get('status', {})),
-                resourceVersion=data.get('resourceVersion', None),
+                lastProbeTime=data.get('lastProbeTime', None),
+                status=data.get('status', None),
+                reason=data.get('reason', None),
+                lastTransitionTime=data.get('lastTransitionTime', None),
             )
 
-
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Condition.newFromDict(json_data)
 class Status(object):
     def __init__(self,**kwargs):
         params = {
@@ -105,7 +93,7 @@ class Status(object):
             raise PyK8SError('Type dict required')
         else:
             return Status(
-                conditions = [Condition.newFromDict(condition) for condition in data.get('conditions',{})],
+                conditions = [Condition.newFromDict(condition) for condition in (data.get('conditions',{}) if (data.get('conditions',{}) is not None) else {})],
             )
 
     @staticmethod
@@ -115,18 +103,27 @@ class Status(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Status(
-                conditionss = [Condition.newFromDict(condition) for condition in data.get('conditions',{})],
+                conditions = [Condition.newFromDict(condition) for condition in (data.get('conditions',{}) if (data.get('conditions',{}) is not None) else {})],
             )
 
-
-class Condition(object):
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Status.newFromDict(json_data)
+class Node(object):
     def __init__(self,**kwargs):
         params = {
+            'resourceVersion':None,
+            'creationTimestamp':None,
             'status':None,
-            'lastProbeTime':None,
+            'hostIP':None,
+            'selfLink':None,
+            'apiVersion':None,
+            'resources':None,
+            'uid':None,
+            'id':None,
             'kind':None,
-            'reason':None,
-            'lastTransitionTime':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -134,6 +131,7 @@ class Condition(object):
 
     def toDict(self):
         params =copy.deepcopy(self.__dict__)
+        params['status']=self.status.toDict();
         
         return params
 
@@ -148,12 +146,17 @@ class Condition(object):
         if not isinstance(data, dict):
             raise PyK8SError('Type dict required')
         else:
-            return Condition(
-                status=data.get('status', None),
-                lastProbeTime=data.get('lastProbeTime', None),
+            return Node(
+                resourceVersion=data.get('resourceVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                status=Status.newFromDict(data.get('status', {})),
+                hostIP=data.get('hostIP', None),
+                selfLink=data.get('selfLink', None),
+                apiVersion=data.get('apiVersion', None),
+#                resources=Resources.newFromDict(data.get('resources', {})),
+                uid=data.get('uid', None),
+                id=data.get('id', None),
                 kind=data.get('kind', None),
-                reason=data.get('reason', None),
-                lastTransitionTime=data.get('lastTransitionTime', None),
             )
 
     @staticmethod
@@ -162,11 +165,21 @@ class Condition(object):
             data=json.loads(jsonStr)
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
-        return Condition(
-                status=data.get('status', None),
-                lastProbeTime=data.get('lastProbeTime', None),
+        return Node(
+                resourceVersion=data.get('resourceVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                status=Status.newFromDict(data.get('status', {})),
+                hostIP=data.get('hostIP', None),
+                selfLink=data.get('selfLink', None),
+                apiVersion=data.get('apiVersion', None),
+#                resources=Resources.newFromDict(data.get('resources', {})),
+                uid=data.get('uid', None),
+                id=data.get('id', None),
                 kind=data.get('kind', None),
-                reason=data.get('reason', None),
-                lastTransitionTime=data.get('lastTransitionTime', None),
             )
 
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Node.newFromDict(json_data)

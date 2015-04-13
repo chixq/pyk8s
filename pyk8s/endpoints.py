@@ -19,227 +19,175 @@ from pyk8s.bindings import Bindings
 
 class EndpointMixin(object):
     #-------bindings-----
-#     def getBindings(self):
-#         response = self.get('bindings')
-#         return Bindings.newFromDict(response)
-
-    def postBindings(self,params):
-        if not isinstance(params,dict):
-            raise PyK8SError('Type dict required')
-        return self.post('bindings',params)
-
-#     def addBindings(self,ob):
-#         if not isinstance(ob,Bindings):
-#             raise PyK8SError('Type Bindings required')
-#         return self.postBindings(ob.toDict())
+    def getBindings(self):
+        response = self.get('bindings')
+        return Bindings.newFromDict(response)
 
     #-------event-----
     def getEvent(self,name):
         response = self.get('events/'+name)
         return Event.newFromDict(response)
 
-    def postEvent(self,name,params):
+    def postEvent(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('events/'+name,params)
+        return self.post('events/',params)
 
-    def addEvent(self,name,ob):
+    def addEvent(self,ob):
         if not isinstance(ob,Event):
             raise PyK8SError('Type Event required')
-        return self.postEvent(name,ob.toDict())
+        return self.postEvent(ob.toDict())
+
+    def addEventFromFile(self,filename):
+        ob=Event.newFromJsonFile(filename)
+        return self.postEvent(ob.toDict())
 
     #-------events-----
     def getEvents(self):
         response = self.get('events')
         return Events.newFromDict(response)
 
-    def postEvents(self,params):
-        if not isinstance(params,dict):
-            raise PyK8SError('Type dict required')
-        return self.post('events',params)
-
-    def addEvents(self,ob):
-        if not isinstance(ob,Events):
-            raise PyK8SError('Type Events required')
-        return self.postEvents(ob.toDict())
-
     #-------limitrange-----
     def getLimitrange(self,name):
         response = self.get('limitranges/'+name)
         return Limitrange.newFromDict(response)
 
-    def postLimitrange(self,name,params):
+    def postLimitrange(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('limitranges/'+name,params)
+        return self.post('limitranges/',params)
 
-    def addLimitrange(self,name,ob):
+    def addLimitrange(self,ob):
         if not isinstance(ob,Limitrange):
             raise PyK8SError('Type Limitrange required')
-        return self.postLimitrange(name,ob.toDict())
+        return self.postLimitrange(ob.toDict())
+
+    def addLimitrangeFromFile(self,filename):
+        ob=Limitrange.newFromJsonFile(filename)
+        return self.postLimitrange(ob.toDict())
 
     #-------limitranges-----
     def getLimitranges(self):
         response = self.get('limitranges')
         return Limitranges.newFromDict(response)
 
-    def postLimitranges(self,params):
-        if not isinstance(params,dict):
-            raise PyK8SError('Type dict required')
-        return self.post('limitranges',params)
-
-    def addLimitranges(self,ob):
-        if not isinstance(ob,Limitranges):
-            raise PyK8SError('Type Limitranges required')
-        return self.postLimitranges(ob.toDict())
-
     #-------node-----
     def getNode(self,name):
         response = self.get('nodes/'+name)
         return Node.newFromDict(response)
 
-    def postNode(self,name,params):
+    def postNode(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('nodes/'+name,params)
+        return self.post('nodes/',params)
 
-    def addNode(self,name,ob):
+    def addNode(self,ob):
         if not isinstance(ob,Node):
             raise PyK8SError('Type Node required')
-        return self.postNode(name,ob.toDict())
+        return self.postNode(ob.toDict())
+
+    def addNodeFromFile(self,filename):
+        ob=Node.newFromJsonFile(filename)
+        return self.postNode(ob.toDict())
 
     #-------nodes-----
     def getNodes(self):
         response = self.get('nodes')
         return Nodes.newFromDict(response)
 
-    def postNodes(self,params):
-        if not isinstance(params,dict):
-            raise PyK8SError('Type dict required')
-        return self.post('nodes',params)
-
-    def addNodes(self,ob):
-        if not isinstance(ob,Nodes):
-            raise PyK8SError('Type Nodes required')
-        return self.postNodes(ob.toDict())
-
     #-------pod-----
     def getPod(self,name):
         response = self.get('pods/'+name)
         return Pod.newFromDict(response)
 
-    def postPod(self,name,params):
+    def postPod(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('pods/'+name,params)
+        return self.post('pods/',params)
 
-    def addPod(self,name,ob):
+    def addPod(self,ob):
         if not isinstance(ob,Pod):
             raise PyK8SError('Type Pod required')
-        return self.postPod(name,ob.toDict())
+        return self.postPod(ob.toDict())
+
+    def addPodFromFile(self,filename):
+        ob=Pod.newFromJsonFile(filename)
+        return self.postPod(ob.toDict())
 
     #-------pods-----
     def getPods(self):
         response = self.get('pods')
         return Pods.newFromDict(response)
 
-    def postPods(self,params):
-        if not isinstance(params,dict):
-            raise PyK8SError('Type dict required')
-        return self.post('pods',params)
-
-    def addPods(self,ob):
-        if not isinstance(ob,Pods):
-            raise PyK8SError('Type Pods required')
-        return self.postPods(ob.toDict())
-
     #-------replicationcontroller-----
     def getReplicationcontroller(self,name):
         response = self.get('replicationcontrollers/'+name)
         return Replicationcontroller.newFromDict(response)
 
-    def postReplicationcontroller(self,name,params):
+    def postReplicationcontroller(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('replicationcontrollers/'+name,params)
+        return self.post('replicationcontrollers/',params)
 
-    def addReplicationcontroller(self,name,ob):
+    def addReplicationcontroller(self,ob):
         if not isinstance(ob,Replicationcontroller):
             raise PyK8SError('Type Replicationcontroller required')
-        return self.postReplicationcontroller(name,ob.toDict())
+        return self.postReplicationcontroller(ob.toDict())
+
+    def addReplicationcontrollerFromFile(self,filename):
+        ob=Replicationcontroller.newFromJsonFile(filename)
+        return self.postReplicationcontroller(ob.toDict())
 
     #-------replicationcontrollers-----
     def getReplicationcontrollers(self):
         response = self.get('replicationcontrollers')
         return Replicationcontrollers.newFromDict(response)
 
-    def postReplicationcontrollers(self,params):
-        if not isinstance(params,dict):
-            raise PyK8SError('Type dict required')
-        return self.post('replicationcontrollers',params)
-
-    def addReplicationcontrollers(self,ob):
-        if not isinstance(ob,Replicationcontrollers):
-            raise PyK8SError('Type Replicationcontrollers required')
-        return self.postReplicationcontrollers(ob.toDict())
-
     #-------resourcequota-----
     def getResourcequota(self,name):
         response = self.get('resourcequotas/'+name)
         return Resourcequota.newFromDict(response)
 
-    def postResourcequota(self,name,params):
+    def postResourcequota(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('resourcequotas/'+name,params)
+        return self.post('resourcequotas/',params)
 
-    def addResourcequota(self,name,ob):
+    def addResourcequota(self,ob):
         if not isinstance(ob,Resourcequota):
             raise PyK8SError('Type Resourcequota required')
-        return self.postResourcequota(name,ob.toDict())
+        return self.postResourcequota(ob.toDict())
+
+    def addResourcequotaFromFile(self,filename):
+        ob=Resourcequota.newFromJsonFile(filename)
+        return self.postResourcequota(ob.toDict())
 
     #-------resourcequotas-----
     def getResourcequotas(self):
         response = self.get('resourcequotas')
         return Resourcequotas.newFromDict(response)
 
-    def postResourcequotas(self,params):
-        if not isinstance(params,dict):
-            raise PyK8SError('Type dict required')
-        return self.post('resourcequotas',params)
-
-    def addResourcequotas(self,ob):
-        if not isinstance(ob,Resourcequotas):
-            raise PyK8SError('Type Resourcequotas required')
-        return self.postResourcequotas(ob.toDict())
-
     #-------service-----
     def getService(self,name):
         response = self.get('services/'+name)
         return Service.newFromDict(response)
 
-    def postService(self,name,params):
+    def postService(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('services/'+name,params)
+        return self.post('services/',params)
 
-    def addService(self,name,ob):
+    def addService(self,ob):
         if not isinstance(ob,Service):
             raise PyK8SError('Type Service required')
-        return self.postService(name,ob.toDict())
+        return self.postService(ob.toDict())
+
+    def addServiceFromFile(self,filename):
+        ob=Service.newFromJsonFile(filename)
+        return self.postService(ob.toDict())
 
     #-------services-----
     def getServices(self):
         response = self.get('services')
         return Services.newFromDict(response)
-
-    def postServices(self,params):
-        if not isinstance(params,dict):
-            raise PyK8SError('Type dict required')
-        return self.post('services',params)
-
-    def addServices(self,ob):
-        if not isinstance(ob,Services):
-            raise PyK8SError('Type Services required')
-        return self.postServices(ob.toDict())
 

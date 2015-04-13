@@ -30,9 +30,13 @@ class GetsTest(unittest.TestCase):
         
     @unittest.skipIf(skipTest, '')
     def testGetPod(self):
-        pod = self.pyk8s.getPod('nginxcontroller-ijs4t')
+        pod = self.pyk8s.getPod('nginxcontroller-pw5ua')
         print pod.toDict()
         self.assertGreater(len(pod.toDict()), 1)
+        
+    @unittest.skipIf(skipTest, '')   
+    def testaddPodFromFile(self):
+        self.pyk8s.addPodFromFile("/home/renhuiyang/2015/pyk8s/test/pod.json")
         
     @unittest.skipIf(skipTest, '')
     def testGetNodes(self):

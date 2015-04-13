@@ -11,12 +11,12 @@ from pyk8s.event import Event
 class Events(object):
     def __init__(self,**kwargs):
         params = {
+            'apiVersion':None,
+            'selfLink':None,
+            'resourceVersion':None,
             'items':None,
             'creationTimestamp':None,
-            'apiVersion':None,
-            'resourceVersion':None,
             'kind':None,
-            'selfLink':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Events(object):
             raise PyK8SError('Type dict required')
         else:
             return Events(
-                items = [Event.newFromDict(event) for event in data.get('items',{})],
-                creationTimestamp=data.get('creationTimestamp', None),
                 apiVersion=data.get('apiVersion', None),
-                resourceVersion=data.get('resourceVersion', None),
-                kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
+                resourceVersion=data.get('resourceVersion', None),
+                items = [Event.newFromDict(event) for event in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                kind=data.get('kind', None),
             )
 
     @staticmethod
@@ -58,11 +58,16 @@ class Events(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Events(
-                itemss = [Events.newFromDict(events) for events in data.get('items',{})],
-                creationTimestamp=data.get('creationTimestamp', None),
                 apiVersion=data.get('apiVersion', None),
-                resourceVersion=data.get('resourceVersion', None),
-                kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
+                resourceVersion=data.get('resourceVersion', None),
+                items = [Events.newFromDict(events) for events in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                kind=data.get('kind', None),
             )
 
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Events.newFromDict(json_data)

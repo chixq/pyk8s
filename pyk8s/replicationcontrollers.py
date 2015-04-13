@@ -11,12 +11,12 @@ from pyk8s.replicationcontroller import Replicationcontroller
 class Replicationcontrollers(object):
     def __init__(self,**kwargs):
         params = {
+            'creationTimestamp':None,
+            'resourceVersion':None,
             'apiVersion':None,
             'items':None,
             'kind':None,
-            'creationTimestamp':None,
             'selfLink':None,
-            'resourceVersion':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Replicationcontrollers(object):
             raise PyK8SError('Type dict required')
         else:
             return Replicationcontrollers(
-                apiVersion=data.get('apiVersion', None),
-                items = [Replicationcontroller.newFromDict(replicationcontroller) for replicationcontroller in data.get('items',{})],
-                kind=data.get('kind', None),
                 creationTimestamp=data.get('creationTimestamp', None),
-                selfLink=data.get('selfLink', None),
                 resourceVersion=data.get('resourceVersion', None),
+                apiVersion=data.get('apiVersion', None),
+                items = [Replicationcontroller.newFromDict(replicationcontroller) for replicationcontroller in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                kind=data.get('kind', None),
+                selfLink=data.get('selfLink', None),
             )
 
     @staticmethod
@@ -58,11 +58,16 @@ class Replicationcontrollers(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Replicationcontrollers(
-                apiVersion=data.get('apiVersion', None),
-                itemss = [Replicationcontrollers.newFromDict(replicationcontrollers) for replicationcontrollers in data.get('items',{})],
-                kind=data.get('kind', None),
                 creationTimestamp=data.get('creationTimestamp', None),
-                selfLink=data.get('selfLink', None),
                 resourceVersion=data.get('resourceVersion', None),
+                apiVersion=data.get('apiVersion', None),
+                items = [Replicationcontrollers.newFromDict(replicationcontrollers) for replicationcontrollers in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                kind=data.get('kind', None),
+                selfLink=data.get('selfLink', None),
             )
 
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Replicationcontrollers.newFromDict(json_data)

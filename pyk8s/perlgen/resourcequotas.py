@@ -12,11 +12,11 @@ class Resourcequotas(object):
     def __init__(self,**kwargs):
         params = {
             'items':None,
-            'creationTimestamp':None,
-            'resourceVersion':None,
-            'apiVersion':None,
             'kind':None,
+            'resourceVersion':None,
+            'creationTimestamp':None,
             'selfLink':None,
+            'apiVersion':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Resourcequotas(object):
             raise PyK8SError('Type dict required')
         else:
             return Resourcequotas(
-                items = [Resourcequota.newFromDict(resourcequota) for resourcequota in data.get('items',{})],
-                creationTimestamp=data.get('creationTimestamp', None),
-                resourceVersion=data.get('resourceVersion', None),
-                apiVersion=data.get('apiVersion', None),
+                items = [Resourcequota.newFromDict(resourcequota) for resourcequota in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 kind=data.get('kind', None),
+                resourceVersion=data.get('resourceVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
                 selfLink=data.get('selfLink', None),
+                apiVersion=data.get('apiVersion', None),
             )
 
     @staticmethod
@@ -58,11 +58,16 @@ class Resourcequotas(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Resourcequotas(
-                itemss = [Resourcequotas.newFromDict(resourcequotas) for resourcequotas in data.get('items',{})],
-                creationTimestamp=data.get('creationTimestamp', None),
-                resourceVersion=data.get('resourceVersion', None),
-                apiVersion=data.get('apiVersion', None),
+                items = [Resourcequotas.newFromDict(resourcequotas) for resourcequotas in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 kind=data.get('kind', None),
+                resourceVersion=data.get('resourceVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
                 selfLink=data.get('selfLink', None),
+                apiVersion=data.get('apiVersion', None),
             )
 
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Resourcequotas.newFromDict(json_data)

@@ -30,6 +30,7 @@ sub get_top_item
         chomp();
         if(/^\s*\"(\w+)\":\s*\{}/){
             my $top_struct=$1."-S";
+            $top_struct=$1."-S";
             if(exists $struct_items{$struct_strack[-1]}){
                 $struct_items{$struct_strack[-1]}=$struct_items{$struct_strack[-1]}." $top_struct";
             }
@@ -148,7 +149,19 @@ sub gen_py_source
         my %items_map=();
         foreach my $item (@items){
             my($itemname,$type)=split(/-/,$item);
-            $items_map{$itemname}=$type;
+            if(exists $items_map{$itemname})
+            {
+                if($type eq "C")
+                {
+                    next;
+                }
+                $items_map{$itemname}=$type;
+ 
+            }
+            else
+            {
+                $items_map{$itemname}=$type;
+            }  
         }
         if($ARGV[0] =~ /s$/){
             my $i = $ARGV[0];
@@ -242,7 +255,7 @@ sub gen_py_source
                         print TAR "#";
                     }
                 }
-                print TAR "                ".$item." = [".ucfirst($single_item).".newFromDict($single_item) for $single_item in data.get('$item',{})],\n";
+                print TAR "                ".$item." = [".ucfirst($single_item).".newFromDict($single_item) for $single_item in (data.get('$item',{}) if (data.get('$item',{}) is not None) else {})],\n";
             }
         }
         print TAR "            )\n";
@@ -281,11 +294,17 @@ sub gen_py_source
                         print TAR "#";
                     }
                 }
-                print TAR "                ".$item."s = [".ucfirst($single_item).".newFromDict($single_item) for $single_item in data.get('$item',{})],\n";
+                print TAR "                ".$item." = [".ucfirst($single_item).".newFromDict($single_item) for $single_item in (data.get('$item',{}) if (data.get('$item',{}) is not None) else {})],\n";
             }
         }
         print TAR "            )\n";
         print TAR "\n";
+
+        print TAR "    \@staticmethod\n";
+        print TAR "    def newFromJsonFile(jsonfile):\n";
+        print TAR "        with open(jsonfile) as json_file:\n";
+        print TAR "            json_data = json.load(json_file)\n";
+        print TAR "        return ".ucfirst($k).".newFromDict(json_data)"
 
     }
 }

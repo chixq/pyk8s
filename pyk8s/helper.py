@@ -53,3 +53,29 @@ class Helper(object):
             else:
                 continue
         return params, files
+    
+#     @staticmethod
+#     def _transparent_params(_params):
+#         params = {}
+#         files = {}
+#         for k, v in _params.items():
+#             if isinstance(v, bool):
+#                 if v:
+#                     params[k] = 'true'
+#                 else:
+#                     params[k] = 'false'
+#             elif isinstance(v, basestring) or isinstance(v, numeric_types):
+#                 params[k] = v
+#             elif isinstance(v, list):
+#                 tmpPara=[]
+#                 for v_item in v:
+#                     tmp = Helper._transparent_params(v_item)
+#                     tmpPara.append(tmp)
+#                 params[k]=tmpPara
+# #             elif v is None:
+# #                 params[k]= json.loads()
+#             elif isinstance(v, dict):
+#                 params[k],_=Helper._transparent_params(v)
+#             else:
+#                 continue
+#         return params, files

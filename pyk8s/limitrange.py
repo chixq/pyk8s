@@ -7,49 +7,6 @@ except ImportError:
 import copy
 from pyk8s.exceptions import PyK8SError
 
-class Max(object):
-    def __init__(self,**kwargs):
-        params = {
-            'cpu':None,
-            'memory':None,
-         }
-
-        for (attribute, default_value) in params.iteritems():
-            setattr(self, attribute, kwargs.get(attribute, default_value))
-
-    def toDict(self):
-        params =copy.deepcopy(self.__dict__)
-        
-        return params
-
-    def toJson(self):
-        return json.dumps(self.toDict(), sort_keys=True)
-
-    @staticmethod
-    def newFromDict(data):
-        if data is None:
-            data = {}
-
-        if not isinstance(data, dict):
-            raise PyK8SError('Type dict required')
-        else:
-            return Max(
-                cpu=data.get('cpu', None),
-                memory=data.get('memory', None),
-            )
-
-    @staticmethod
-    def newFromJson(jsonStr):
-        try:
-            data=json.loads(jsonStr)
-        except ValueError as ex:
-            raise PyK8SError('Input json is not valid, ' + str(ex))
-        return Max(
-                cpu=data.get('cpu', None),
-                memory=data.get('memory', None),
-            )
-
-
 class Spec(object):
     def __init__(self,**kwargs):
         params = {
@@ -80,7 +37,7 @@ class Spec(object):
             raise PyK8SError('Type dict required')
         else:
             return Spec(
-                limits = [Limit.newFromDict(limit) for limit in data.get('limits',{})],
+                limits = [Limit.newFromDict(limit) for limit in (data.get('limits',{}) if (data.get('limits',{}) is not None) else {})],
             )
 
     @staticmethod
@@ -90,10 +47,14 @@ class Spec(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Spec(
-                limitss = [Limit.newFromDict(limit) for limit in data.get('limits',{})],
+                limits = [Limit.newFromDict(limit) for limit in (data.get('limits',{}) if (data.get('limits',{}) is not None) else {})],
             )
 
-
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Spec.newFromDict(json_data)
 class Min(object):
     def __init__(self,**kwargs):
         params = {
@@ -136,13 +97,16 @@ class Min(object):
                 memory=data.get('memory', None),
             )
 
-
-class Limit(object):
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Min.newFromDict(json_data)
+class Max(object):
     def __init__(self,**kwargs):
         params = {
-            'min':None,
-            'max':None,
-            'type':None,
+            'cpu':None,
+            'memory':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -150,8 +114,56 @@ class Limit(object):
 
     def toDict(self):
         params =copy.deepcopy(self.__dict__)
-        params['min']=self.min.toDict();
+        
+        return params
+
+    def toJson(self):
+        return json.dumps(self.toDict(), sort_keys=True)
+
+    @staticmethod
+    def newFromDict(data):
+        if data is None:
+            data = {}
+
+        if not isinstance(data, dict):
+            raise PyK8SError('Type dict required')
+        else:
+            return Max(
+                cpu=data.get('cpu', None),
+                memory=data.get('memory', None),
+            )
+
+    @staticmethod
+    def newFromJson(jsonStr):
+        try:
+            data=json.loads(jsonStr)
+        except ValueError as ex:
+            raise PyK8SError('Input json is not valid, ' + str(ex))
+        return Max(
+                cpu=data.get('cpu', None),
+                memory=data.get('memory', None),
+            )
+
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Max.newFromDict(json_data)
+class Limit(object):
+    def __init__(self,**kwargs):
+        params = {
+            'max':None,
+            'type':None,
+            'min':None,
+         }
+
+        for (attribute, default_value) in params.iteritems():
+            setattr(self, attribute, kwargs.get(attribute, default_value))
+
+    def toDict(self):
+        params =copy.deepcopy(self.__dict__)
         params['max']=self.max.toDict();
+        params['min']=self.min.toDict();
         
         return params
 
@@ -167,9 +179,9 @@ class Limit(object):
             raise PyK8SError('Type dict required')
         else:
             return Limit(
-                min=Min.newFromDict(data.get('min', {})),
                 max=Max.newFromDict(data.get('max', {})),
                 type=data.get('type', None),
+                min=Min.newFromDict(data.get('min', {})),
             )
 
     @staticmethod
@@ -179,19 +191,23 @@ class Limit(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Limit(
-                min=Min.newFromDict(data.get('min', {})),
                 max=Max.newFromDict(data.get('max', {})),
                 type=data.get('type', None),
+                min=Min.newFromDict(data.get('min', {})),
             )
 
-
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Limit.newFromDict(json_data)
 class Limitrange(object):
     def __init__(self,**kwargs):
         params = {
-            'apiVersion':None,
             'spec':None,
-            'kind':None,
             'id':None,
+            'apiVersion':None,
+            'kind':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -215,10 +231,10 @@ class Limitrange(object):
             raise PyK8SError('Type dict required')
         else:
             return Limitrange(
-                apiVersion=data.get('apiVersion', None),
                 spec=Spec.newFromDict(data.get('spec', {})),
-                kind=data.get('kind', None),
                 id=data.get('id', None),
+                apiVersion=data.get('apiVersion', None),
+                kind=data.get('kind', None),
             )
 
     @staticmethod
@@ -228,9 +244,14 @@ class Limitrange(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Limitrange(
-                apiVersion=data.get('apiVersion', None),
                 spec=Spec.newFromDict(data.get('spec', {})),
-                kind=data.get('kind', None),
                 id=data.get('id', None),
+                apiVersion=data.get('apiVersion', None),
+                kind=data.get('kind', None),
             )
 
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Limitrange.newFromDict(json_data)

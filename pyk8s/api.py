@@ -58,7 +58,9 @@ class PyK8S(EndpointMixin, object):
         params = params or {}
 
         verb_func = getattr(self.client, method)
-        params, _ = Helper._transparent_params(params)
+#         params, _ = Helper._transparent_params(params)
+        
+        
 
         requests_args = {}
         if self.auth:
@@ -72,7 +74,8 @@ class PyK8S(EndpointMixin, object):
             requests_args['params'] = params
         else:
             requests_args.update({
-                'data': params,
+#                 'data': params,
+                  'data': json.dumps(params)
             })
 
         try:
@@ -86,7 +89,7 @@ class PyK8S(EndpointMixin, object):
                 ExceptionType = PyK8SAuthError
             else:
                 ExceptionType = PyK8SError
-            raise ExceptionType(response.json(), error_code=response.status_code)
+            raise ExceptionType(response.json, error_code=response.status_code)
         
         print type(response)
         try:

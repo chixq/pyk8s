@@ -11,12 +11,12 @@ from pyk8s.service import Service
 class Services(object):
     def __init__(self,**kwargs):
         params = {
-            'kind':None,
             'creationTimestamp':None,
-            'apiVersion':None,
             'resourceVersion':None,
-            'items':None,
             'selfLink':None,
+            'items':None,
+            'apiVersion':None,
+            'kind':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Services(object):
             raise PyK8SError('Type dict required')
         else:
             return Services(
-                kind=data.get('kind', None),
                 creationTimestamp=data.get('creationTimestamp', None),
-                apiVersion=data.get('apiVersion', None),
                 resourceVersion=data.get('resourceVersion', None),
-                items = [Service.newFromDict(service) for service in data.get('items',{})],
                 selfLink=data.get('selfLink', None),
+                items = [Service.newFromDict(service) for service in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                apiVersion=data.get('apiVersion', None),
+                kind=data.get('kind', None),
             )
 
     @staticmethod
@@ -58,11 +58,16 @@ class Services(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Services(
-                kind=data.get('kind', None),
                 creationTimestamp=data.get('creationTimestamp', None),
-                apiVersion=data.get('apiVersion', None),
                 resourceVersion=data.get('resourceVersion', None),
-                itemss = [Services.newFromDict(services) for services in data.get('items',{})],
                 selfLink=data.get('selfLink', None),
+                items = [Services.newFromDict(services) for services in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                apiVersion=data.get('apiVersion', None),
+                kind=data.get('kind', None),
             )
 
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Services.newFromDict(json_data)

@@ -11,11 +11,11 @@ from pyk8s.node import Node
 class Nodes(object):
     def __init__(self,**kwargs):
         params = {
-            'creationTimestamp':None,
             'apiVersion':None,
-            'items':None,
-            'selfLink':None,
             'kind':None,
+            'creationTimestamp':None,
+            'selfLink':None,
+            'items':None,
             'resourceVersion':None,
          }
 
@@ -43,11 +43,11 @@ class Nodes(object):
             raise PyK8SError('Type dict required')
         else:
             return Nodes(
-                creationTimestamp=data.get('creationTimestamp', None),
                 apiVersion=data.get('apiVersion', None),
-                items = [Node.newFromDict(node) for node in data.get('items',{})],
-                selfLink=data.get('selfLink', None),
                 kind=data.get('kind', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                selfLink=data.get('selfLink', None),
+                items = [Node.newFromDict(node) for node in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 resourceVersion=data.get('resourceVersion', None),
             )
 
@@ -58,11 +58,16 @@ class Nodes(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Nodes(
-                creationTimestamp=data.get('creationTimestamp', None),
                 apiVersion=data.get('apiVersion', None),
-                itemss = [Nodes.newFromDict(nodes) for nodes in data.get('items',{})],
-                selfLink=data.get('selfLink', None),
                 kind=data.get('kind', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                selfLink=data.get('selfLink', None),
+                items = [Nodes.newFromDict(nodes) for nodes in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 resourceVersion=data.get('resourceVersion', None),
             )
 
+    @staticmethod
+    def newFromJsonFile(jsonfile):
+        with open(jsonfile) as json_file:
+            json_data = json.load(json_file)
+        return Nodes.newFromDict(json_data)
