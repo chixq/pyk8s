@@ -1,8 +1,0 @@
-{
-  "kind": "LimitRangeList",
-  "creationTimestamp": null,
-  "selfLink": "/api/v1beta2/limitRanges?namespace=",
-  "resourceVersion": 394264,
-  "apiVersion": "v1beta2",
-  "items": []
-}
