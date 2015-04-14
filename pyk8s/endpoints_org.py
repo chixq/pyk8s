@@ -15,5 +15,6 @@ from pyk8s.event import Event
 from pyk8s.limitrange import Limitrange
 from pyk8s.replicationcontroller import Replicationcontroller
 from pyk8s.resourcequota import Resourcequota
+from pyk8s.bindings import Bindings
 
 class EndpointMixin(object):

@@ -12,11 +12,11 @@ class Events(object):
     def __init__(self,**kwargs):
         params = {
             'apiVersion':None,
+            'creationTimestamp':None,
             'selfLink':None,
             'resourceVersion':None,
-            'items':None,
-            'creationTimestamp':None,
             'kind':None,
+            'items':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -44,11 +44,11 @@ class Events(object):
         else:
             return Events(
                 apiVersion=data.get('apiVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
                 selfLink=data.get('selfLink', None),
                 resourceVersion=data.get('resourceVersion', None),
-                items = [Event.newFromDict(event) for event in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
-                creationTimestamp=data.get('creationTimestamp', None),
                 kind=data.get('kind', None),
+                items = [Event.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
             )
 
     @staticmethod
@@ -59,11 +59,11 @@ class Events(object):
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Events(
                 apiVersion=data.get('apiVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
                 selfLink=data.get('selfLink', None),
                 resourceVersion=data.get('resourceVersion', None),
-                items = [Events.newFromDict(events) for events in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
-                creationTimestamp=data.get('creationTimestamp', None),
                 kind=data.get('kind', None),
+                items = [Events.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
             )
 
     @staticmethod

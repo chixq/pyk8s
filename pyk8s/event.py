@@ -7,16 +7,16 @@ except ImportError:
 import copy
 from pyk8s.exceptions import PyK8SError
 
-class InvolvedObject(object):
+class Event_involvedObject(object):
     def __init__(self,**kwargs):
         params = {
-            'name':None,
-            'apiVersion':None,
-            'uid':None,
-            'fieldPath':None,
             'namespace':None,
-            'kind':None,
+            'uid':None,
+            'apiVersion':None,
             'resourceVersion':None,
+            'kind':None,
+            'fieldPath':None,
+            'name':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -38,14 +38,14 @@ class InvolvedObject(object):
         if not isinstance(data, dict):
             raise PyK8SError('Type dict required')
         else:
-            return InvolvedObject(
-                name=data.get('name', None),
-                apiVersion=data.get('apiVersion', None),
-                uid=data.get('uid', None),
-                fieldPath=data.get('fieldPath', None),
+            return Event_involvedObject(
                 namespace=data.get('namespace', None),
-                kind=data.get('kind', None),
+                uid=data.get('uid', None),
+                apiVersion=data.get('apiVersion', None),
                 resourceVersion=data.get('resourceVersion', None),
+                kind=data.get('kind', None),
+                fieldPath=data.get('fieldPath', None),
+                name=data.get('name', None),
             )
 
     @staticmethod
@@ -54,44 +54,44 @@ class InvolvedObject(object):
             data=json.loads(jsonStr)
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
-        return InvolvedObject(
-                name=data.get('name', None),
-                apiVersion=data.get('apiVersion', None),
-                uid=data.get('uid', None),
-                fieldPath=data.get('fieldPath', None),
+        return Event_involvedObject(
                 namespace=data.get('namespace', None),
-                kind=data.get('kind', None),
+                uid=data.get('uid', None),
+                apiVersion=data.get('apiVersion', None),
                 resourceVersion=data.get('resourceVersion', None),
+                kind=data.get('kind', None),
+                fieldPath=data.get('fieldPath', None),
+                name=data.get('name', None),
             )
 
     @staticmethod
     def newFromJsonFile(jsonfile):
         with open(jsonfile) as json_file:
             json_data = json.load(json_file)
-        return InvolvedObject.newFromDict(json_data)
+        return Event_involvedObject.newFromDict(json_data)
 class Event(object):
     def __init__(self,**kwargs):
         params = {
-            'count':None,
-            'kind':None,
-            'status':None,
-            'involvedObject':None,
-            'host':None,
-            'id':None,
-            'source':None,
             'lastTimestamp':None,
-            'apiVersion':None,
-            'generateName':None,
-            'creationTimestamp':None,
-            'selfLink':None,
-            'resourceVersion':None,
-            'namespace':None,
             'annotations':None,
+            'selfLink':None,
             'message':None,
+            'source':None,
+            'namespace':None,
+            'generateName':None,
+            'kind':None,
+            'host':None,
+            'firstTimestamp':None,
+            'id':None,
             'timestamp':None,
             'uid':None,
             'reason':None,
-            'firstTimestamp':None,
+            'apiVersion':None,
+            'status':None,
+            'resourceVersion':None,
+            'creationTimestamp':None,
+            'involvedObject':None,
+            'count':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -115,26 +115,26 @@ class Event(object):
             raise PyK8SError('Type dict required')
         else:
             return Event(
-                count=data.get('count', None),
-                kind=data.get('kind', None),
-                status=data.get('status', None),
-                involvedObject=InvolvedObject.newFromDict(data.get('involvedObject', {})),
-                host=data.get('host', None),
-                id=data.get('id', None),
-                source=data.get('source', None),
                 lastTimestamp=data.get('lastTimestamp', None),
-                apiVersion=data.get('apiVersion', None),
-                generateName=data.get('generateName', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                selfLink=data.get('selfLink', None),
-                resourceVersion=data.get('resourceVersion', None),
-                namespace=data.get('namespace', None),
                 annotations=data.get('annotations', None),
+                selfLink=data.get('selfLink', None),
                 message=data.get('message', None),
+                source=data.get('source', None),
+                namespace=data.get('namespace', None),
+                generateName=data.get('generateName', None),
+                kind=data.get('kind', None),
+                host=data.get('host', None),
+                firstTimestamp=data.get('firstTimestamp', None),
+                id=data.get('id', None),
                 timestamp=data.get('timestamp', None),
                 uid=data.get('uid', None),
                 reason=data.get('reason', None),
-                firstTimestamp=data.get('firstTimestamp', None),
+                apiVersion=data.get('apiVersion', None),
+                status=data.get('status', None),
+                resourceVersion=data.get('resourceVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                involvedObject=Event_involvedObject.newFromDict(data.get('involvedObject', {})),
+                count=data.get('count', None),
             )
 
     @staticmethod
@@ -144,26 +144,26 @@ class Event(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Event(
-                count=data.get('count', None),
-                kind=data.get('kind', None),
-                status=data.get('status', None),
-                involvedObject=InvolvedObject.newFromDict(data.get('involvedObject', {})),
-                host=data.get('host', None),
-                id=data.get('id', None),
-                source=data.get('source', None),
                 lastTimestamp=data.get('lastTimestamp', None),
-                apiVersion=data.get('apiVersion', None),
-                generateName=data.get('generateName', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                selfLink=data.get('selfLink', None),
-                resourceVersion=data.get('resourceVersion', None),
-                namespace=data.get('namespace', None),
                 annotations=data.get('annotations', None),
+                selfLink=data.get('selfLink', None),
                 message=data.get('message', None),
+                source=data.get('source', None),
+                namespace=data.get('namespace', None),
+                generateName=data.get('generateName', None),
+                kind=data.get('kind', None),
+                host=data.get('host', None),
+                firstTimestamp=data.get('firstTimestamp', None),
+                id=data.get('id', None),
                 timestamp=data.get('timestamp', None),
                 uid=data.get('uid', None),
                 reason=data.get('reason', None),
-                firstTimestamp=data.get('firstTimestamp', None),
+                apiVersion=data.get('apiVersion', None),
+                status=data.get('status', None),
+                resourceVersion=data.get('resourceVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                involvedObject=Event_involvedObject.newFromDict(data.get('involvedObject', {})),
+                count=data.get('count', None),
             )
 
     @staticmethod

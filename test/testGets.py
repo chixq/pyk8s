@@ -14,25 +14,18 @@ class GetsTest(unittest.TestCase):
             },
             'allow_redirects': False
         }
-        self.pyk8s = PyK8S(base_url="http://54.249.185.104:8888/api", user_id="", user_password="", client_args=client_args)
+        self.pyk8s = PyK8S(base_url="http://54.159.167.112:8888/api", user_id="", user_password="", client_args=client_args)
 
     @unittest.skipIf(skipTest, '')
     def testGetPods(self):
         pod_list = self.pyk8s.getPods()
-        print "============="
-        print pod_list.items
-        print "============="
-        print pod_list.toDict()
-        print "============="
-        print pod_list.items
-        print "============="
         self.assertGreater(len(pod_list.toDict()), 1)
         
-    @unittest.skipIf(skipTest, '')
-    def testGetPod(self):
-        pod = self.pyk8s.getPod('nginxcontroller-pw5ua')
-        print pod.toDict()
-        self.assertGreater(len(pod.toDict()), 1)
+#     @unittest.skipIf(skipTest, '')
+#     def testGetPod(self):
+#         pod = self.pyk8s.getPod('nginxcontroller-pw5ua')
+#         print pod.toDict()
+#         self.assertGreater(len(pod.toDict()), 1)
         
     @unittest.skipIf(skipTest, '')   
     def testaddPodFromFile(self):
@@ -45,7 +38,7 @@ class GetsTest(unittest.TestCase):
         
     @unittest.skipIf(skipTest, '')   
     def testGetNode(self):
-        node = self.pyk8s.getNode('ip-10-126-31-240.ap-northeast-1.compute.internal')
+        node = self.pyk8s.getNode('ip-10-35-177-40.ec2.internal')
         self.assertGreater(len(node.toDict()), 1)
         
     @unittest.skipIf(skipTest, '')
@@ -57,6 +50,14 @@ class GetsTest(unittest.TestCase):
     def testGetService(self):
         Service = self.pyk8s.getService('k8sm-scheduler')
         self.assertGreater(len(Service.toDict()), 1)
+        
+    @unittest.skipIf(skipTest, '')   
+    def testaddReplicationcontrollerFromFile(self):
+        self.pyk8s.addReplicationControllerFromFile("/home/renhuiyang/2015/pyk8s/test/controll.json")
+        
+#     @unittest.skipIf(skipTest, '')   
+#     def testaddServiceFromFile(self):
+#         self.pyk8s.addServiceFromFile("/home/renhuiyang/2015/pyk8s/test/service.json")
         
 if __name__ == '__main__':
    unittest.main()

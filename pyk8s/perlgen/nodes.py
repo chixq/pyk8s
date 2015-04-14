@@ -11,12 +11,12 @@ from pyk8s.node import Node
 class Nodes(object):
     def __init__(self,**kwargs):
         params = {
+            'resourceVersion':None,
+            'creationTimestamp':None,
+            'items':None,
             'apiVersion':None,
             'kind':None,
-            'creationTimestamp':None,
             'selfLink':None,
-            'items':None,
-            'resourceVersion':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Nodes(object):
             raise PyK8SError('Type dict required')
         else:
             return Nodes(
+                resourceVersion=data.get('resourceVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                items = [Node.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 apiVersion=data.get('apiVersion', None),
                 kind=data.get('kind', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 selfLink=data.get('selfLink', None),
-                items = [Node.newFromDict(node) for node in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
-                resourceVersion=data.get('resourceVersion', None),
             )
 
     @staticmethod
@@ -58,12 +58,12 @@ class Nodes(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Nodes(
+                resourceVersion=data.get('resourceVersion', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                items = [Nodes.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 apiVersion=data.get('apiVersion', None),
                 kind=data.get('kind', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 selfLink=data.get('selfLink', None),
-                items = [Nodes.newFromDict(nodes) for nodes in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
-                resourceVersion=data.get('resourceVersion', None),
             )
 
     @staticmethod

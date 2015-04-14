@@ -1,0 +1,29 @@
+Test GET Method...
+auth not set
+Test GET Method...
+auth not set
+<class 'requests.models.Response'>
+Test GET Method...
+auth not set
+Test GET Method...
+auth not set
+<class 'requests.models.Response'>
+=============
+[<pyk8s.pod.Pod object at 0x7f81254f8cd0>]
+=============
+{'kind': u'PodList', 'items': [{'kind': None, 'uid': u'1103aff2-e251-11e4-821b-22000bd58ada', 'labels': {'name': u'foo'}, 'namespace': u'default', 'apiVersion': None, 'desiredState': {'manifest': {'dnsPolicy': u'ClusterFirst', 'restartPolicy': {'always': None}, 'version': u'v1beta2', 'volumes': None, 'id': u'', 'containers': [{'terminationMessagePath': u'/dev/termination-log', 'name': u'nginx-01', 'image': u'dockerfile/nginx', 'capabilities': None, 'imagePullPolicy': u'PullIfNotPresent', 'ports': [{'protocol': u'TCP', 'containerPort': 80, 'hostPort': 31000}], 'resources': None}]}}, 'currentState': {'status': u'Running', 'manifest': {'dnsPolicy': None, 'restartPolicy': {'always': None}, 'version': u'', 'volumes': None, 'id': u'', 'containers': []}}, 'resourceVersion': 325, 'generateName': None, 'creationTimestamp': u'2015-04-14T02:50:53Z', 'id': u'nginx-id-01', 'selfLink': u'/api/v1beta2/pods/nginx-id-01?namespace=default'}], 'apiVersion': u'v1beta2', 'resourceVersion': 1744, 'creationTimestamp': None, 'selfLink': u'/api/v1beta2/pods?namespace='}
+=============
+[<pyk8s.pod.Pod object at 0x7f81254f8cd0>]
+=============
+Test GET Method...
+auth not set
+<class 'requests.models.Response'>
+Test GET Method...
+auth not set
+<class 'requests.models.Response'>
+Test GET Method...
+auth not set
+Test GET Method...
+auth not set
+Test GET Method...
+auth not set

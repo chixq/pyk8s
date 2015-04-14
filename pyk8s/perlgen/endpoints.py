@@ -47,29 +47,29 @@ class EndpointMixin(object):
         response = self.get('events')
         return Events.newFromDict(response)
 
-    #-------limitrange-----
-    def getLimitrange(self,name):
-        response = self.get('limitranges/'+name)
-        return Limitrange.newFromDict(response)
+    #-------limitRange-----
+    def getLimitRange(self,name):
+        response = self.get('limitRanges/'+name)
+        return LimitRange.newFromDict(response)
 
-    def postLimitrange(self,params):
+    def postLimitRange(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('limitranges/',params)
+        return self.post('limitRanges/',params)
 
-    def addLimitrange(self,ob):
-        if not isinstance(ob,Limitrange):
-            raise PyK8SError('Type Limitrange required')
-        return self.postLimitrange(ob.toDict())
+    def addLimitRange(self,ob):
+        if not isinstance(ob,LimitRange):
+            raise PyK8SError('Type LimitRange required')
+        return self.postLimitRange(ob.toDict())
 
-    def addLimitrangeFromFile(self,filename):
-        ob=Limitrange.newFromJsonFile(filename)
-        return self.postLimitrange(ob.toDict())
+    def addLimitRangeFromFile(self,filename):
+        ob=LimitRange.newFromJsonFile(filename)
+        return self.postLimitRange(ob.toDict())
 
-    #-------limitranges-----
-    def getLimitranges(self):
-        response = self.get('limitranges')
-        return Limitranges.newFromDict(response)
+    #-------limitRanges-----
+    def getLimitRanges(self):
+        response = self.get('limitRanges')
+        return LimitRanges.newFromDict(response)
 
     #-------node-----
     def getNode(self,name):
@@ -119,53 +119,53 @@ class EndpointMixin(object):
         response = self.get('pods')
         return Pods.newFromDict(response)
 
-    #-------replicationcontroller-----
-    def getReplicationcontroller(self,name):
-        response = self.get('replicationcontrollers/'+name)
-        return Replicationcontroller.newFromDict(response)
+    #-------replicationController-----
+    def getReplicationController(self,name):
+        response = self.get('replicationControllers/'+name)
+        return ReplicationController.newFromDict(response)
 
-    def postReplicationcontroller(self,params):
+    def postReplicationController(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('replicationcontrollers/',params)
+        return self.post('replicationControllers/',params)
 
-    def addReplicationcontroller(self,ob):
-        if not isinstance(ob,Replicationcontroller):
-            raise PyK8SError('Type Replicationcontroller required')
-        return self.postReplicationcontroller(ob.toDict())
+    def addReplicationController(self,ob):
+        if not isinstance(ob,ReplicationController):
+            raise PyK8SError('Type ReplicationController required')
+        return self.postReplicationController(ob.toDict())
 
-    def addReplicationcontrollerFromFile(self,filename):
-        ob=Replicationcontroller.newFromJsonFile(filename)
-        return self.postReplicationcontroller(ob.toDict())
+    def addReplicationControllerFromFile(self,filename):
+        ob=ReplicationController.newFromJsonFile(filename)
+        return self.postReplicationController(ob.toDict())
 
-    #-------replicationcontrollers-----
-    def getReplicationcontrollers(self):
-        response = self.get('replicationcontrollers')
-        return Replicationcontrollers.newFromDict(response)
+    #-------replicationControllers-----
+    def getReplicationControllers(self):
+        response = self.get('replicationControllers')
+        return ReplicationControllers.newFromDict(response)
 
-    #-------resourcequota-----
-    def getResourcequota(self,name):
-        response = self.get('resourcequotas/'+name)
-        return Resourcequota.newFromDict(response)
+    #-------resourceQuota-----
+    def getResourceQuota(self,name):
+        response = self.get('resourceQuotas/'+name)
+        return ResourceQuota.newFromDict(response)
 
-    def postResourcequota(self,params):
+    def postResourceQuota(self,params):
         if not isinstance(params,dict):
             raise PyK8SError('Type dict required')
-        return self.post('resourcequotas/',params)
+        return self.post('resourceQuotas/',params)
 
-    def addResourcequota(self,ob):
-        if not isinstance(ob,Resourcequota):
-            raise PyK8SError('Type Resourcequota required')
-        return self.postResourcequota(ob.toDict())
+    def addResourceQuota(self,ob):
+        if not isinstance(ob,ResourceQuota):
+            raise PyK8SError('Type ResourceQuota required')
+        return self.postResourceQuota(ob.toDict())
 
-    def addResourcequotaFromFile(self,filename):
-        ob=Resourcequota.newFromJsonFile(filename)
-        return self.postResourcequota(ob.toDict())
+    def addResourceQuotaFromFile(self,filename):
+        ob=ResourceQuota.newFromJsonFile(filename)
+        return self.postResourceQuota(ob.toDict())
 
-    #-------resourcequotas-----
-    def getResourcequotas(self):
-        response = self.get('resourcequotas')
-        return Resourcequotas.newFromDict(response)
+    #-------resourceQuotas-----
+    def getResourceQuotas(self):
+        response = self.get('resourceQuotas')
+        return ResourceQuotas.newFromDict(response)
 
     #-------service-----
     def getService(self,name):

@@ -1,0 +1,10 @@
+{
+  "id": "nginxservice",
+  "kind": "Service",
+  "apiVersion": "v1beta1",
+  "port": 8000,
+  "selector": {
+    "name": "nginx"
+  }
+}
+

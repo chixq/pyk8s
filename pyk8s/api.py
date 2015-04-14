@@ -79,6 +79,11 @@ class PyK8S(EndpointMixin, object):
             })
 
         try:
+            if method == 'post':
+                print "url:"+url+"\n";
+                print ">>>post>>>\n"
+                print json.dumps(params)
+                print "<<<end<<<\n"
             response = verb_func(url, **requests_args)
         except requests.RequestException as e:
             raise PyK8SError(str(e))
@@ -91,7 +96,6 @@ class PyK8S(EndpointMixin, object):
                 ExceptionType = PyK8SError
             raise ExceptionType(response.json, error_code=response.status_code)
         
-        print type(response)
         try:
             content = response.json
         except ValueError:

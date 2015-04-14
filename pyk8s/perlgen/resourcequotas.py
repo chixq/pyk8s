@@ -11,12 +11,12 @@ from pyk8s.resourcequota import Resourcequota
 class Resourcequotas(object):
     def __init__(self,**kwargs):
         params = {
-            'items':None,
             'kind':None,
+            'selfLink':None,
             'resourceVersion':None,
             'creationTimestamp':None,
-            'selfLink':None,
             'apiVersion':None,
+            'items':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Resourcequotas(object):
             raise PyK8SError('Type dict required')
         else:
             return Resourcequotas(
-                items = [Resourcequota.newFromDict(resourcequota) for resourcequota in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 kind=data.get('kind', None),
+                selfLink=data.get('selfLink', None),
                 resourceVersion=data.get('resourceVersion', None),
                 creationTimestamp=data.get('creationTimestamp', None),
-                selfLink=data.get('selfLink', None),
                 apiVersion=data.get('apiVersion', None),
+                items = [Resourcequota.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
             )
 
     @staticmethod
@@ -58,12 +58,12 @@ class Resourcequotas(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Resourcequotas(
-                items = [Resourcequotas.newFromDict(resourcequotas) for resourcequotas in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 kind=data.get('kind', None),
+                selfLink=data.get('selfLink', None),
                 resourceVersion=data.get('resourceVersion', None),
                 creationTimestamp=data.get('creationTimestamp', None),
-                selfLink=data.get('selfLink', None),
                 apiVersion=data.get('apiVersion', None),
+                items = [Resourcequotas.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
             )
 
     @staticmethod

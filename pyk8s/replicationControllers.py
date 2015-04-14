@@ -7,22 +7,16 @@ except ImportError:
 import copy
 from pyk8s.exceptions import PyK8SError
 
-from pyk8s.binding import Binding
-class Bindings(object):
+from pyk8s.replicationController import ReplicationController
+class ReplicationControllers(object):
     def __init__(self,**kwargs):
         params = {
+            'items':None,
             'apiVersion':None,
-            'uid':None,
-            'host':None,
-            'creationTimestamp':None,
             'kind':None,
-            'podID':None,
-            'resourceVersion':None,
-            'annotations':None,
-            'namespace':None,
             'selfLink':None,
-            'id':None,
-            'generateName':None,
+            'creationTimestamp':None,
+            'resourceVersion':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -30,6 +24,10 @@ class Bindings(object):
 
     def toDict(self):
         params =copy.deepcopy(self.__dict__)
+        i=0
+        for item in self.items:
+            params['items'][i]=item.toDict();
+            i=i+1;
         
         return params
 
@@ -44,19 +42,13 @@ class Bindings(object):
         if not isinstance(data, dict):
             raise PyK8SError('Type dict required')
         else:
-            return Bindings(
+            return ReplicationControllers(
+                items = [ReplicationController.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 apiVersion=data.get('apiVersion', None),
-                uid=data.get('uid', None),
-                host=data.get('host', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 kind=data.get('kind', None),
-                podID=data.get('podID', None),
-                resourceVersion=data.get('resourceVersion', None),
-                annotations=data.get('annotations', None),
-                namespace=data.get('namespace', None),
                 selfLink=data.get('selfLink', None),
-                id=data.get('id', None),
-                generateName=data.get('generateName', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 
     @staticmethod
@@ -65,23 +57,17 @@ class Bindings(object):
             data=json.loads(jsonStr)
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
-        return Bindings(
+        return ReplicationControllers(
+                items = [ReplicationControllers.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 apiVersion=data.get('apiVersion', None),
-                uid=data.get('uid', None),
-                host=data.get('host', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 kind=data.get('kind', None),
-                podID=data.get('podID', None),
-                resourceVersion=data.get('resourceVersion', None),
-                annotations=data.get('annotations', None),
-                namespace=data.get('namespace', None),
                 selfLink=data.get('selfLink', None),
-                id=data.get('id', None),
-                generateName=data.get('generateName', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 
     @staticmethod
     def newFromJsonFile(jsonfile):
         with open(jsonfile) as json_file:
             json_data = json.load(json_file)
-        return Bindings.newFromDict(json_data)
+        return ReplicationControllers.newFromDict(json_data)

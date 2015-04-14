@@ -7,16 +7,16 @@ except ImportError:
 import copy
 from pyk8s.exceptions import PyK8SError
 
-from pyk8s.node import Node
-class Nodes(object):
+from pyk8s.resourceQuota import ResourceQuota
+class ResourceQuotas(object):
     def __init__(self,**kwargs):
         params = {
-            'resourceVersion':None,
-            'creationTimestamp':None,
             'items':None,
-            'apiVersion':None,
             'kind':None,
             'selfLink':None,
+            'creationTimestamp':None,
+            'apiVersion':None,
+            'resourceVersion':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -42,13 +42,13 @@ class Nodes(object):
         if not isinstance(data, dict):
             raise PyK8SError('Type dict required')
         else:
-            return Nodes(
-                resourceVersion=data.get('resourceVersion', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                items = [Node.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
-                apiVersion=data.get('apiVersion', None),
+            return ResourceQuotas(
+                items = [ResourceQuota.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                apiVersion=data.get('apiVersion', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 
     @staticmethod
@@ -57,17 +57,17 @@ class Nodes(object):
             data=json.loads(jsonStr)
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
-        return Nodes(
-                resourceVersion=data.get('resourceVersion', None),
-                creationTimestamp=data.get('creationTimestamp', None),
-                items = [Nodes.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
-                apiVersion=data.get('apiVersion', None),
+        return ResourceQuotas(
+                items = [ResourceQuotas.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 kind=data.get('kind', None),
                 selfLink=data.get('selfLink', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                apiVersion=data.get('apiVersion', None),
+                resourceVersion=data.get('resourceVersion', None),
             )
 
     @staticmethod
     def newFromJsonFile(jsonfile):
         with open(jsonfile) as json_file:
             json_data = json.load(json_file)
-        return Nodes.newFromDict(json_data)
+        return ResourceQuotas.newFromDict(json_data)

@@ -11,17 +11,17 @@ from pyk8s.exceptions import PyK8SError
 class Bindings(object):
     def __init__(self,**kwargs):
         params = {
-            'podID':None,
             'apiVersion':None,
-            'creationTimestamp':None,
             'uid':None,
-            'kind':None,
-            'resourceVersion':None,
             'host':None,
-            'selfLink':None,
+            'creationTimestamp':None,
+            'kind':None,
+            'podID':None,
+            'resourceVersion':None,
             'annotations':None,
-            'id':None,
             'namespace':None,
+            'selfLink':None,
+            'id':None,
             'generateName':None,
          }
 
@@ -45,17 +45,17 @@ class Bindings(object):
             raise PyK8SError('Type dict required')
         else:
             return Bindings(
-                podID=data.get('podID', None),
                 apiVersion=data.get('apiVersion', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 uid=data.get('uid', None),
-                kind=data.get('kind', None),
-                resourceVersion=data.get('resourceVersion', None),
                 host=data.get('host', None),
-                selfLink=data.get('selfLink', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                kind=data.get('kind', None),
+                podID=data.get('podID', None),
+                resourceVersion=data.get('resourceVersion', None),
                 annotations=data.get('annotations', None),
-                id=data.get('id', None),
                 namespace=data.get('namespace', None),
+                selfLink=data.get('selfLink', None),
+                id=data.get('id', None),
                 generateName=data.get('generateName', None),
             )
 
@@ -66,17 +66,17 @@ class Bindings(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Bindings(
-                podID=data.get('podID', None),
                 apiVersion=data.get('apiVersion', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 uid=data.get('uid', None),
-                kind=data.get('kind', None),
-                resourceVersion=data.get('resourceVersion', None),
                 host=data.get('host', None),
-                selfLink=data.get('selfLink', None),
+                creationTimestamp=data.get('creationTimestamp', None),
+                kind=data.get('kind', None),
+                podID=data.get('podID', None),
+                resourceVersion=data.get('resourceVersion', None),
                 annotations=data.get('annotations', None),
-                id=data.get('id', None),
                 namespace=data.get('namespace', None),
+                selfLink=data.get('selfLink', None),
+                id=data.get('id', None),
                 generateName=data.get('generateName', None),
             )
 

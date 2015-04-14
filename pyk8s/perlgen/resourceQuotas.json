@@ -1,0 +1,8 @@
+{
+  "kind": "ResourceQuotaList",
+  "creationTimestamp": null,
+  "selfLink": "/api/v1beta2/resourceQuotas?namespace=",
+  "resourceVersion": 461891,
+  "apiVersion": "v1beta2",
+  "items": []
+}

@@ -11,12 +11,12 @@ from pyk8s.pod import Pod
 class Pods(object):
     def __init__(self,**kwargs):
         params = {
-            'kind':None,
-            'selfLink':None,
-            'resourceVersion':None,
-            'creationTimestamp':None,
             'apiVersion':None,
+            'resourceVersion':None,
+            'kind':None,
             'items':None,
+            'selfLink':None,
+            'creationTimestamp':None,
          }
 
         for (attribute, default_value) in params.iteritems():
@@ -43,12 +43,12 @@ class Pods(object):
             raise PyK8SError('Type dict required')
         else:
             return Pods(
-                kind=data.get('kind', None),
-                selfLink=data.get('selfLink', None),
-                resourceVersion=data.get('resourceVersion', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 apiVersion=data.get('apiVersion', None),
-                items = [Pod.newFromDict(pod) for pod in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                resourceVersion=data.get('resourceVersion', None),
+                kind=data.get('kind', None),
+                items = [Pod.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                selfLink=data.get('selfLink', None),
+                creationTimestamp=data.get('creationTimestamp', None),
             )
 
     @staticmethod
@@ -58,12 +58,12 @@ class Pods(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Pods(
-                kind=data.get('kind', None),
-                selfLink=data.get('selfLink', None),
-                resourceVersion=data.get('resourceVersion', None),
-                creationTimestamp=data.get('creationTimestamp', None),
                 apiVersion=data.get('apiVersion', None),
-                items = [Pods.newFromDict(pods) for pods in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                resourceVersion=data.get('resourceVersion', None),
+                kind=data.get('kind', None),
+                items = [Pods.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                selfLink=data.get('selfLink', None),
+                creationTimestamp=data.get('creationTimestamp', None),
             )
 
     @staticmethod

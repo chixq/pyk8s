@@ -11,11 +11,11 @@ from pyk8s.service import Service
 class Services(object):
     def __init__(self,**kwargs):
         params = {
-            'creationTimestamp':None,
-            'resourceVersion':None,
-            'selfLink':None,
-            'items':None,
             'apiVersion':None,
+            'resourceVersion':None,
+            'items':None,
+            'creationTimestamp':None,
+            'selfLink':None,
             'kind':None,
          }
 
@@ -43,11 +43,11 @@ class Services(object):
             raise PyK8SError('Type dict required')
         else:
             return Services(
-                creationTimestamp=data.get('creationTimestamp', None),
-                resourceVersion=data.get('resourceVersion', None),
-                selfLink=data.get('selfLink', None),
-                items = [Service.newFromDict(service) for service in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 apiVersion=data.get('apiVersion', None),
+                resourceVersion=data.get('resourceVersion', None),
+                items = [Service.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                selfLink=data.get('selfLink', None),
                 kind=data.get('kind', None),
             )
 
@@ -58,11 +58,11 @@ class Services(object):
         except ValueError as ex:
             raise PyK8SError('Input json is not valid, ' + str(ex))
         return Services(
-                creationTimestamp=data.get('creationTimestamp', None),
-                resourceVersion=data.get('resourceVersion', None),
-                selfLink=data.get('selfLink', None),
-                items = [Services.newFromDict(services) for services in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
                 apiVersion=data.get('apiVersion', None),
+                resourceVersion=data.get('resourceVersion', None),
+                items = [Services.newFromDict(item) for item in (data.get('items',{}) if (data.get('items',{}) is not None) else {})],
+                creationTimestamp=data.get('creationTimestamp', None),
+                selfLink=data.get('selfLink', None),
                 kind=data.get('kind', None),
             )
 
